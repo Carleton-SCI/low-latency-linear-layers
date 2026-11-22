@@ -1,0 +1,56 @@
+# File timestamp (UTC): 2026-11-01T14:27:26
+# Written by slpd (low-latency linear layers); format of the NIST Circuit Complexity Project
+# https://csrc.nist.gov/projects/circuit-complexity
+
+begin circuit FSE_LiuSim16_16_Circulant--stm130
+
+# Boolean Circuit for a linear system y = A.x defined by a 16x16 bit-matrix A
+# Matrix A weights (W): totalW=76, adjW=60, minWInRow=4, maxWInRow=5, minWInCol=4, maxWICol=5
+# Matrix represented as 16 rows: vecRows=UInt16[0x4311, 0xc422, 0x9844, 0x2188, 0x3114, 0x422c, 0x8449, 0x1882, 0x1143, 0x22c4, 0x4498, 0x8821, 0x1431, 0x2c42, 0x4984, 0x8218]
+# Matrix represented as 16 columns: vecCols=UInt16[0x1941, 0x2182, 0x4234, 0x8468, 0x9411, 0x1822, 0x2344, 0x4688, 0x4119, 0x8221, 0x3442, 0x6884, 0x1194, 0x2218, 0x4423, 0x8846]
+# The element in the i-th row and j-th col of A is A[i,j] = 1 & (vecRows[i]>>(j-1)) = 1 & (vecCols[j]>>(i-1))
+
+# Source: paper run (the four stages, stage 3), run/bbeam/FSE_LiuSim16_16_Circulant.seed6.stm130.txt
+# Tally: 16 inputs, 16 outputs, 29 gates (11 XOR, 18 XOR3)
+# Depth: 2 (gate levels; an XOR3 gate counts as one level)
+# Area (unit-area sums, HILL ToSC 2026(1) Table 1): UMC 180 nm 117.06 GE, STM 130 nm 120.51 GE
+# XOR2 circuit before merging: 46 gates, depth 3; 1 gate(s) of fan-out two duplicated before merging
+# Merge: exact for the STM unit areas, with duplication of gates of fan-out two (paper/tables/stm_merge.py)
+
+Inputs: x1:x16
+Outputs: y1:y16
+Internal: t1:t13
+GateSyntax: GateName Output Inputs
+
+begin SLP
+XOR t1 x8 x4
+XOR t2 x9 x3
+XOR t3 x15 x5
+XOR t4 x12 x8
+XOR t5 x13 x5
+XOR t6 x15 x6
+XOR t7 x16 x12
+XOR t8 x13 x7
+XOR t9 x11 x1
+XOR t10 x16 x4
+XOR t11 x9 x1
+XOR3 t12 x3 x10 x8
+XOR3 y4 x9 x14 t1
+XOR3 y12 x6 x1 t7
+XOR3 y1 x10 t3 t11
+XOR3 y8 x2 x13 t4
+XOR3 t13 x2 x12 x11
+XOR3 y16 t10 x10 x5
+XOR3 y7 x7 t9 t10
+XOR3 y14 t13 x14 x7
+XOR3 y11 t1 x11 t3
+XOR3 y9 x2 t8 t11
+XOR3 y2 t13 t6 t7
+XOR3 y10 t12 x14 x7
+XOR3 y6 t12 t1 t6
+XOR3 y13 x6 t5 t9
+XOR3 y15 x15 t2 t4
+XOR3 y3 x3 t7 t8
+XOR3 y5 t2 x14 t5
+end SLP
+end circuit

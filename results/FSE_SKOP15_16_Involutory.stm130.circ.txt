@@ -1,0 +1,58 @@
+# File timestamp (UTC): 2026-11-01T14:27:26
+# Written by slpd (low-latency linear layers); format of the NIST Circuit Complexity Project
+# https://csrc.nist.gov/projects/circuit-complexity
+
+begin circuit FSE_SKOP15_16_Involutory--stm130
+
+# Boolean Circuit for a linear system y = A.x defined by a 16x16 bit-matrix A
+# Matrix A weights (W): totalW=88, adjW=72, minWInRow=5, maxWInRow=7, minWInCol=5, maxWICol=7
+# Matrix represented as 16 rows: vecRows=UInt16[0x7341, 0x84c2, 0x1894, 0x3128, 0x3714, 0x482c, 0x8149, 0x1382, 0x4173, 0xc284, 0x9418, 0x2831, 0x1437, 0x2c48, 0x4981, 0x8213]
+# Matrix represented as 16 columns: vecCols=UInt16[0xd941, 0x9182, 0x1234, 0x2468, 0x9d14, 0x1928, 0x2143, 0x4286, 0x41d9, 0x8291, 0x3412, 0x6824, 0x149d, 0x2819, 0x4321, 0x8642]
+# The element in the i-th row and j-th col of A is A[i,j] = 1 & (vecRows[i]>>(j-1)) = 1 & (vecCols[j]>>(i-1))
+
+# Source: server run (stage 4 with the UMC area as the objective, stage 4), runs/area/FSE_SKOP15_16_Involutory.seed1.stm130.txt
+# Tally: 16 inputs, 16 outputs, 31 gates (13 XOR, 18 XOR3)
+# Depth: 3 (gate levels; an XOR3 gate counts as one level)
+# Area (unit-area sums, HILL ToSC 2026(1) Table 1): UMC 180 nm 123.06 GE, STM 130 nm 127.17 GE
+# XOR2 circuit before merging: 48 gates, depth 3; 1 gate(s) of fan-out two duplicated before merging
+# Merge: exact for the STM unit areas, with duplication of gates of fan-out two (paper/tables/stm_merge.py)
+
+Inputs: x1:x16
+Outputs: y1:y16
+Internal: t1:t15
+GateSyntax: GateName Output Inputs
+
+begin SLP
+XOR t1 x16 x7
+XOR t2 x8 x3
+XOR t3 x6 x1
+XOR t4 x14 x13
+XOR3 t5 t4 x10 x9
+XOR3 t6 x12 x13 x5
+XOR3 y12 t6 t3 t4
+XOR t7 x11 x3
+XOR3 t8 t3 x5 x2
+XOR3 t9 x4 x9 x1
+XOR t10 x16 x10
+XOR t11 x15 x7
+XOR t12 x12 x4
+XOR t13 x8 x2
+XOR3 y9 t8 x9 t11
+XOR3 y2 t1 x11 t13
+XOR3 y8 t5 x14 t13
+XOR3 t14 t12 x15 x8
+XOR y15 t9 t14
+XOR3 y16 t8 x6 t10
+XOR3 t15 t12 x16 x11
+XOR3 y1 t5 x1 t11
+XOR3 y6 t14 x6 t2
+XOR3 y4 t9 t3 t4
+XOR3 y13 t8 x13 t7
+XOR y11 t6 t15
+XOR3 y14 t15 x14 t1
+XOR y7 t1 t9
+XOR3 y5 t5 x5 t7
+XOR3 y10 t2 x15 t10
+XOR y3 t2 t6
+end SLP
+end circuit

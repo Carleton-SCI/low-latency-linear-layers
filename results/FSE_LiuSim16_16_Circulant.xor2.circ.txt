@@ -1,0 +1,68 @@
+# File timestamp (UTC): 2026-11-01T14:27:26
+# Written by slpd (low-latency linear layers); format of the NIST Circuit Complexity Project
+# https://csrc.nist.gov/projects/circuit-complexity
+
+begin circuit FSE_LiuSim16_16_Circulant--xor2
+
+# Boolean Circuit for a linear system y = A.x defined by a 16x16 bit-matrix A
+# Matrix A weights (W): totalW=76, adjW=60, minWInRow=4, maxWInRow=5, minWInCol=4, maxWICol=5
+# Matrix represented as 16 rows: vecRows=UInt16[0x4311, 0xc422, 0x9844, 0x2188, 0x3114, 0x422c, 0x8449, 0x1882, 0x1143, 0x22c4, 0x4498, 0x8821, 0x1431, 0x2c42, 0x4984, 0x8218]
+# Matrix represented as 16 columns: vecCols=UInt16[0x1941, 0x2182, 0x4234, 0x8468, 0x9411, 0x1822, 0x2344, 0x4688, 0x4119, 0x8221, 0x3442, 0x6884, 0x1194, 0x2218, 0x4423, 0x8846]
+# The element in the i-th row and j-th col of A is A[i,j] = 1 & (vecRows[i]>>(j-1)) = 1 & (vecCols[j]>>(i-1))
+
+# Source: paper run (the four stages, stage 3), run/bbeam/FSE_LiuSim16_16_Circulant.seed4.xor2.txt
+# Tally: 16 inputs, 16 outputs, 43 gates (43 XOR)
+# Depth: 3
+# Area (unit-area sums, HILL ToSC 2026(1) Table 1): UMC 180 nm 129.00 GE, STM 130 nm 143.19 GE
+
+Inputs: x1:x16
+Outputs: y1:y16
+Internal: t1:t27
+GateSyntax: GateName Output Inputs
+
+begin SLP
+XOR t1 x16 x11
+XOR t2 x6 x1
+XOR t3 x9 x5
+XOR t4 x15 x3
+XOR t5 x11 x5
+XOR t6 x13 t5
+XOR t7 x14 x3
+XOR t8 x13 t7
+XOR t9 x7 x1
+XOR t10 x4 t9
+XOR t11 x16 x12
+XOR y12 t2 t11
+XOR t12 x10 x4
+XOR t13 x6 t12
+XOR t14 x9 x8
+XOR t15 x12 t14
+XOR t16 x4 t14
+XOR y4 x14 t16
+XOR t17 t5 t12
+XOR y16 t1 t17
+XOR t18 x15 x10
+XOR t19 x1 t18
+XOR t20 x8 t18
+XOR y11 t17 t20
+XOR t21 x14 x7
+XOR t22 t11 t21
+XOR y3 t8 t22
+XOR t23 x2 t1
+XOR y14 t22 t23
+XOR t24 x15 x6
+XOR y2 t24 t23
+XOR t25 t4 t21
+XOR y10 t20 t25
+XOR t26 x9 x2
+XOR t27 x13 t26
+XOR y9 t9 t27
+XOR y8 t15 t27
+XOR y7 t10 t1
+XOR y13 t6 t2
+XOR y1 t19 t3
+XOR y5 t3 t8
+XOR y6 t13 t4
+XOR y15 t4 t15
+end SLP
+end circuit

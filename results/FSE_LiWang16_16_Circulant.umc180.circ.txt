@@ -1,0 +1,58 @@
+# File timestamp (UTC): 2026-11-01T14:27:26
+# Written by slpd (low-latency linear layers); format of the NIST Circuit Complexity Project
+# https://csrc.nist.gov/projects/circuit-complexity
+
+begin circuit FSE_LiWang16_16_Circulant--umc180
+
+# Boolean Circuit for a linear system y = A.x defined by a 16x16 bit-matrix A
+# Matrix A weights (W): totalW=76, adjW=60, minWInRow=4, maxWInRow=5, minWInCol=4, maxWICol=5
+# Matrix represented as 16 rows: vecRows=UInt16[0x6211, 0xc422, 0x1844, 0x2988, 0x2116, 0x422c, 0x8441, 0x9882, 0x1162, 0x22c4, 0x4418, 0x8829, 0x1621, 0x2c42, 0x4184, 0x8298]
+# Matrix represented as 16 columns: vecCols=UInt16[0x1841, 0x2192, 0x4234, 0x8c28, 0x8411, 0x1922, 0x2344, 0xc288, 0x4118, 0x9221, 0x3442, 0x288c, 0x1184, 0x2219, 0x4423, 0x88c2]
+# The element in the i-th row and j-th col of A is A[i,j] = 1 & (vecRows[i]>>(j-1)) = 1 & (vecCols[j]>>(i-1))
+
+# Source: paper run (the four stages, stage 1), run/forward/FSE_LiWang16_16_Circulant__bp_w2000_s1_seed1.stm130.txt
+# Tally: 16 inputs, 16 outputs, 32 gates (20 XOR, 12 XOR3)
+# Depth: 2 (gate levels; an XOR3 gate counts as one level)
+# Area (unit-area sums, HILL ToSC 2026(1) Table 1): UMC 180 nm 116.04 GE, STM 130 nm 122.52 GE
+# XOR2 circuit before merging: 44 gates, depth 3
+
+Inputs: x1:x16
+Outputs: y1:y16
+Internal: t1:t16
+GateSyntax: GateName Output Inputs
+
+begin SLP
+XOR t1 x13 x12
+XOR t2 x7 x3
+XOR y3 t1 t2
+XOR t3 x15 x3
+XOR t4 x9 x8
+XOR y15 t3 t4
+XOR t5 x15 x11
+XOR t6 x5 x4
+XOR y11 t5 t6
+XOR t7 x16 x2
+XOR3 y8 x8 t1 t7
+XOR t8 x16 x1
+XOR t9 x11 x7
+XOR y7 t8 t9
+XOR3 y2 t7 x6 t5
+XOR t10 x13 x6
+XOR t11 x6 x4
+XOR t12 x10 x8
+XOR t13 x14 x12
+XOR3 y4 t13 x4 t4
+XOR3 y12 x12 t8 t11
+XOR3 y6 t3 x10 t11
+XOR3 y14 t13 x2 t9
+XOR3 y16 x16 t6 t12
+XOR3 y10 t2 x14 t12
+XOR t14 x10 x1
+XOR3 y13 t10 x11 t14
+XOR t15 x14 x5
+XOR3 y1 t14 x15 t15
+XOR t16 x9 x2
+XOR3 y5 t15 x3 t16
+XOR3 y9 t10 x7 t16
+end SLP
+end circuit

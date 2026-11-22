@@ -1,0 +1,55 @@
+# File timestamp (UTC): 2026-11-01T14:27:26
+# Written by slpd (low-latency linear layers); format of the NIST Circuit Complexity Project
+# https://csrc.nist.gov/projects/circuit-complexity
+
+begin circuit ToSC_SarSye16_16_Toeplitz--stm130
+
+# Boolean Circuit for a linear system y = A.x defined by a 16x16 bit-matrix A
+# Matrix A weights (W): totalW=74, adjW=58, minWInRow=4, maxWInRow=6, minWInCol=4, maxWICol=6
+# Matrix represented as 16 rows: vecRows=UInt16[0x2811, 0x4122, 0x9244, 0x1c88, 0x8114, 0x1229, 0x2443, 0xc882, 0x1141, 0x2292, 0x4434, 0x8828, 0x1412, 0x2924, 0x4349, 0x8281]
+# Matrix represented as 16 columns: vecCols=UInt16[0xc161, 0x12c2, 0x2414, 0x4828, 0x1611, 0x2c22, 0x4144, 0x8288, 0x6112, 0xc224, 0x1448, 0x2889, 0x112c, 0x2241, 0x4482, 0x8894]
+# The element in the i-th row and j-th col of A is A[i,j] = 1 & (vecRows[i]>>(j-1)) = 1 & (vecCols[j]>>(i-1))
+
+# Source: paper run (the four stages, stage 3), run/bbeam/ToSC_SarSye16_16_Toeplitz.seed4.stm130.txt
+# Tally: 16 inputs, 16 outputs, 28 gates (11 XOR, 17 XOR3)
+# Depth: 3 (gate levels; an XOR3 gate counts as one level)
+# Area (unit-area sums, HILL ToSC 2026(1) Table 1): UMC 180 nm 112.39 GE, STM 130 nm 115.85 GE
+# XOR2 circuit before merging: 45 gates, depth 3
+# Merge: exact for the STM unit areas, with duplication of gates of fan-out two (paper/tables/stm_merge.py)
+
+Inputs: x1:x16
+Outputs: y1:y16
+Internal: t1:t12
+GateSyntax: GateName Output Inputs
+
+begin SLP
+XOR t1 x7 x1
+XOR t2 x15 x6
+XOR t3 x8 x2
+XOR t4 x12 t3
+XOR t5 x11 x2
+XOR3 t6 x7 x16 x10
+XOR3 y13 t5 x13 x5
+XOR3 y16 t6 x8 t1
+XOR3 y9 t1 x13 x9
+XOR3 y2 t2 x9 x2
+XOR t7 x5 x3
+XOR3 y5 t7 x16 x9
+XOR3 y11 t2 x11 t7
+XOR t8 x14 x5
+XOR3 y10 t8 x10 t3
+XOR3 y1 t8 x12 x1
+XOR t9 x13 x4
+XOR3 y4 t4 t5 t9
+XOR3 t10 t9 x15 x10
+XOR t11 x12 x6
+XOR3 t12 t11 x9 x3
+XOR3 y12 x4 x16 t11
+XOR y15 y9 t10
+XOR3 y3 t6 x13 x3
+XOR y14 t12 x14
+XOR3 y8 t4 x16 x15
+XOR3 y6 t10 x1 t2
+XOR3 y7 t1 x14 t5
+end SLP
+end circuit
