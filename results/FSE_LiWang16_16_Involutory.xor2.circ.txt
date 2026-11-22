@@ -1,0 +1,72 @@
+# File timestamp (UTC): 2026-11-01T14:27:26
+# Written by slpd (low-latency linear layers); format of the NIST Circuit Complexity Project
+# https://csrc.nist.gov/projects/circuit-complexity
+
+begin circuit FSE_LiWang16_16_Involutory--xor2
+
+# Boolean Circuit for a linear system y = A.x defined by a 16x16 bit-matrix A
+# Matrix A weights (W): totalW=88, adjW=72, minWInRow=5, maxWInRow=7, minWInCol=5, maxWICol=7
+# Matrix represented as 16 rows: vecRows=UInt16[0x9b21, 0x4152, 0x1984, 0x2468, 0xb912, 0x1425, 0x9148, 0x4286, 0x219b, 0x5241, 0x8419, 0x6824, 0x12b9, 0x2514, 0x4891, 0x8642]
+# Matrix represented as 16 columns: vecCols=UInt16[0x5721, 0x8192, 0x28a4, 0x1548, 0x7512, 0x1829, 0x824a, 0x5184, 0x2157, 0x9281, 0xa428, 0x4815, 0x1275, 0x2918, 0x4a82, 0x8451]
+# The element in the i-th row and j-th col of A is A[i,j] = 1 & (vecRows[i]>>(j-1)) = 1 & (vecCols[j]>>(i-1))
+
+# Source: paper run (the four stages, stage 4), run/lns/FSE_LiWang16_16_Involutory.seed7.stm130.txt
+# Tally: 16 inputs, 16 outputs, 47 gates (47 XOR)
+# Depth: 3
+# Area (unit-area sums, HILL ToSC 2026(1) Table 1): UMC 180 nm 141.00 GE, STM 130 nm 156.51 GE
+
+Inputs: x1:x16
+Outputs: y1:y16
+Internal: t1:t31
+GateSyntax: GateName Output Inputs
+
+begin SLP
+XOR t1 x15 x2
+XOR t2 x6 x3
+XOR t3 x10 x6
+XOR t4 x4 t3
+XOR t5 x14 x2
+XOR t6 x16 t5
+XOR t7 x9 x5
+XOR t8 x7 t7
+XOR t9 x13 x1
+XOR t10 x11 t9
+XOR t11 x16 x4
+XOR t12 x13 x5
+XOR t13 t11 t12
+XOR y7 t8 t13
+XOR t14 x12 x9
+XOR t15 x10 x7
+XOR t16 x14 x11
+XOR t17 t15 t16
+XOR t18 x15 t9
+XOR y10 t15 t18
+XOR t19 x3 t7
+XOR y14 t16 t19
+XOR t20 x12 x8
+XOR t21 t12 t20
+XOR y3 t19 t21
+XOR y15 t18 t21
+XOR t22 x12 t5
+XOR t23 t1 t2
+XOR y12 t22 t23
+XOR t24 x8 t3
+XOR y8 t23 t24
+XOR t25 x8 x1
+XOR t26 x16 t14
+XOR t27 t3 t9
+XOR y1 t26 t27
+XOR t28 t5 t12
+XOR y5 t26 t28
+XOR t29 t5 t7
+XOR t30 x4 t25
+XOR y9 t29 t30
+XOR t31 t3 t12
+XOR y13 t30 t31
+XOR y2 t1 t8
+XOR y11 t10 t13
+XOR y6 t2 t10
+XOR y16 t17 t6
+XOR y4 t4 t17
+end SLP
+end circuit

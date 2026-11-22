@@ -1,0 +1,85 @@
+# File timestamp (UTC): 2026-11-01T14:27:26
+# Written by slpd (low-latency linear layers); format of the NIST Circuit Complexity Project
+# https://csrc.nist.gov/projects/circuit-complexity
+
+begin circuit KLSW--stm130
+
+# Boolean Circuit for a linear system y = A.x defined by a 32x32 bit-matrix A
+# Matrix A weights (W): totalW=160, adjW=128, minWInRow=4, maxWInRow=7, minWInCol=4, maxWICol=7
+# Matrix represented as 32 rows: vecRows=UInt32[0x01040801, 0x020c0902, 0x04090204, 0x08020408, 0x10408010, 0x20c09020, 0x40902040, 0x80204080, 0x04010108, 0x0c020209, 0x09040402, 0x02080804, 0x40101080, 0xc0202090, 0x90404020, 0x20808040, 0x08010802, 0x09020906, 0x0204020c, 0x04080409, 0x80108020, 0x90209060, 0x204020c0, 0x40804090, 0x01080208, 0x02090609, 0x04020c02, 0x08040904, 0x10802080, 0x20906090, 0x4020c020, 0x80409040]
+# Matrix represented as 32 columns: vecCols=UInt32[0x02080201, 0x04030402, 0x08060804, 0x030c0308, 0x20802010, 0x40304020, 0x80608040, 0x30c03080, 0x08020102, 0x03040204, 0x06080408, 0x0c030803, 0x80201020, 0x30402040, 0x60804080, 0xc0308030, 0x02010104, 0x04020208, 0x08040403, 0x03080806, 0x20101040, 0x40202080, 0x80404030, 0x30808060, 0x01020401, 0x02040802, 0x04080304, 0x08030608, 0x10204010, 0x20408020, 0x40803040, 0x80306080]
+# The element in the i-th row and j-th col of A is A[i,j] = 1 & (vecRows[i]>>(j-1)) = 1 & (vecCols[j]>>(i-1))
+
+# Source: server run (stage 4 started from the published circuit of SFX23, stage 4), runs/stage4fromsfx/KLSW.seed6.stm130.txt
+# Tally: 32 inputs, 32 outputs, 58 gates (30 XOR, 28 XOR3)
+# Depth: 3 (gate levels; an XOR3 gate counts as one level)
+# Area (unit-area sums, HILL ToSC 2026(1) Table 1): UMC 180 nm 220.76 GE, STM 130 nm 230.38 GE
+# XOR2 circuit before merging: 83 gates, depth 3; 3 gate(s) of fan-out two duplicated before merging
+# Merge: exact for the STM unit areas, with duplication of gates of fan-out two (paper/tables/stm_merge.py)
+
+Inputs: x1:x32
+Outputs: y1:y32
+Internal: t1:t26
+GateSyntax: GateName Output Inputs
+
+begin SLP
+XOR t1 x28 x11
+XOR t2 x15 x5
+XOR3 t3 x2 x28 x12
+XOR y17 x17 t3
+XOR t4 x10 x4
+XOR t5 x13 x7
+XOR3 t6 t5 x16 x6
+XOR t7 x19 x2
+XOR t8 x9 x3
+XOR3 y28 t3 t7 t8
+XOR3 t9 t2 x14 x8
+XOR3 t10 t1 x27 x18
+XOR t11 x27 x4
+XOR y4 t11 t10
+XOR t12 x30 x24
+XOR3 t13 t12 x23 x7
+XOR t14 x23 x16
+XOR y16 t14 t13
+XOR3 t15 t14 x29 x15
+XOR3 t16 x24 x14 x8
+XOR y23 t13 t16
+XOR y29 x29 t16
+XOR3 t17 x32 x16 x6
+XOR y15 t15 t17
+XOR y21 x21 t17
+XOR t18 x32 x22
+XOR3 t19 t18 x31 x15
+XOR y31 t17 t19
+XOR t20 x31 x8
+XOR y8 t20 t19
+XOR t21 x11 x1
+XOR3 y32 x32 t5 t14
+XOR3 y9 x9 x17 t11
+XOR t22 x26 x3
+XOR3 y19 t4 x19 t22
+XOR3 t23 t20 x21 x7
+XOR y7 t16 t23
+XOR y13 t5 t23
+XOR3 y20 t11 x20 t21
+XOR3 y22 t6 x29 t18
+XOR3 y24 x24 t2 t20
+XOR3 y10 t10 t4 t21
+XOR3 y12 t22 x20 x12
+XOR3 t24 t8 x25 x18
+XOR y18 t3 t24
+XOR t25 x25 x1
+XOR3 y1 x19 x12 t25
+XOR3 t26 t4 x20 x17
+XOR3 y3 t26 x3 t11
+XOR3 y26 t26 x26 t21
+XOR y6 t13 t6
+XOR3 y11 t1 x25 t7
+XOR y27 t3 t10
+XOR y14 t9 t19
+XOR3 y30 t9 x21 t12
+XOR y5 t2 t15
+XOR3 y25 x25 x20 t4
+XOR3 y2 y12 t7 t8
+end SLP
+end circuit

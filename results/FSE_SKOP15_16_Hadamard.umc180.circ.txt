@@ -1,0 +1,59 @@
+# File timestamp (UTC): 2026-11-01T14:27:26
+# Written by slpd (low-latency linear layers); format of the NIST Circuit Complexity Project
+# https://csrc.nist.gov/projects/circuit-complexity
+
+begin circuit FSE_SKOP15_16_Hadamard--umc180
+
+# Boolean Circuit for a linear system y = A.x defined by a 16x16 bit-matrix A
+# Matrix A weights (W): totalW=84, adjW=68, minWInRow=5, maxWInRow=6, minWInCol=5, maxWICol=6
+# Matrix represented as 16 rows: vecRows=UInt16[0x3281, 0x4692, 0x8c24, 0x1948, 0x2318, 0x6429, 0xc842, 0x9184, 0x8132, 0x9246, 0x248c, 0x4819, 0x1823, 0x2964, 0x42c8, 0x8491]
+# Matrix represented as 16 columns: vecCols=UInt16[0x9821, 0x1342, 0x2684, 0x4c38, 0x8912, 0x3124, 0x6248, 0xc483, 0x2198, 0x4213, 0x8426, 0x384c, 0x1289, 0x2431, 0x4862, 0x83c4]
+# The element in the i-th row and j-th col of A is A[i,j] = 1 & (vecRows[i]>>(j-1)) = 1 & (vecCols[j]>>(i-1))
+
+# Source: paper run (the four stages, stage 4), run/lns/FSE_SKOP15_16_Hadamard.seed1.stm130.txt
+# Tally: 16 inputs, 16 outputs, 33 gates (19 XOR, 14 XOR3)
+# Depth: 3 (gate levels; an XOR3 gate counts as one level)
+# Area (unit-area sums, HILL ToSC 2026(1) Table 1): UMC 180 nm 122.38 GE, STM 130 nm 128.51 GE
+# XOR2 circuit before merging: 47 gates, depth 3
+
+Inputs: x1:x16
+Outputs: y1:y16
+Internal: t1:t17
+GateSyntax: GateName Output Inputs
+
+begin SLP
+XOR t1 x16 x11
+XOR t2 x10 x8
+XOR t3 x8 x3
+XOR t4 x15 x1
+XOR t5 x9 x7
+XOR t6 x12 x6
+XOR t7 x3 t6
+XOR t8 x16 x2
+XOR t9 t2 t8
+XOR t10 x14 x4
+XOR t11 x11 t10
+XOR t12 x15 x7
+XOR t13 x13 x1
+XOR3 t14 t1 x15 x5
+XOR3 y13 t6 x2 t13
+XOR3 y7 t8 x12 t12
+XOR t15 x9 x5
+XOR3 y5 t15 x10 t10
+XOR t16 x12 x4
+XOR3 y12 x5 t4 t16
+XOR3 t17 t3 x13 x7
+XOR3 y4 t16 x13 t5
+XOR3 y9 t8 x6 t15
+XOR3 y6 t11 x6 t4
+XOR3 y16 t14 x8 t4
+XOR3 y14 t7 x14 t5
+XOR y3 t1 t7
+XOR3 y15 t2 x4 t12
+XOR3 y8 t17 x16 t5
+XOR y11 t3 t11
+XOR y10 t9 t17
+XOR y2 t9 t14
+XOR3 y1 t2 x14 t13
+end SLP
+end circuit

@@ -1,0 +1,10 @@
+bin/
+__pycache__/
+*.pyc
+slpd_out/
+out/
+run/
+*.log
+!paper/**/*.log
+ties_vs_restarts/
+tvr*/

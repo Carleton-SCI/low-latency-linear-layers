@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Low-latency linear layers: search in the browser</title>
+<meta name="description" content="The four-stage search for low-latency XOR circuits of binary linear layers, compiled to WebAssembly; it runs in the browser.">
+<style>
+/*STYLE*/
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <h1>Low-latency linear layers</h1>
+    <p class="lead">Fewest XOR2 gates at a depth bound, and the smallest XOR2/XOR3 area, for your binary matrix. The search
+      program of the paper, compiled to WebAssembly, runs on this page: nothing leaves your computer.</p>
+  </div>
+</header>
+
+<main class="wrap grid">
+  <section class="card" id="matrix-card" aria-labelledby="matrix-h">
+    <div class="card-head">
+      <h2 id="matrix-h">1. Matrix</h2>
+      <div class="tools">
+        <label class="sr" for="example">Example</label>
+        <select id="example">
+          <option value="">Examples…</option>
+        </select>
+        <button type="button" id="open-file" class="ghost">Open file…</button>
+        <input type="file" id="file" accept=".txt,.mat,.csv,text/plain" hidden>
+        <button type="button" id="clear" class="ghost">Clear</button>
+      </div>
+    </div>
+    <p class="hint">One row per output, entries 0 or 1 separated by spaces (row j gives output y<sub>j</sub>, column c is input x<sub>c</sub>).
+      The NIST / Boyar–Peralta format (number of matrices, then “rows columns” and the rows) also works; lines starting with # are
+      comments. At most 64 inputs and 128 outputs. You can also drop a file here.</p>
+    <textarea id="matrix" spellcheck="false" autocomplete="off" rows="14" aria-describedby="check"
+      placeholder="1 1 1 1 1 0 0 0&#10;0 1 1 1 1 1 0 0&#10;…"></textarea>
+    <div id="pick-wrap" class="row" hidden>
+      <label for="pick">Matrix</label><select id="pick"></select>
+    </div>
+    <div id="check" class="check" aria-live="polite"></div>
+  </section>
+
+  <section class="card" id="search-card" aria-labelledby="search-h">
+    <div class="card-head"><h2 id="search-h">2. Search</h2></div>
+    <fieldset class="presets">
+      <legend>Budget</legend>
+      <label class="seg"><input type="radio" name="preset" value="quick" checked><span>Quick</span></label>
+      <label class="seg"><input type="radio" name="preset" value="standard"><span>Standard</span></label>
+      <label class="seg"><input type="radio" name="preset" value="paper"><span>Paper</span></label>
+    </fieldset>
+    <p id="preset-note" class="hint"></p>
+    <div class="settings">
+      <div class="field">
+        <label for="depth">Depth bound</label>
+        <input type="number" id="depth" min="1" max="20" step="1">
+        <small id="depth-note"></small>
+      </div>
+      <div class="field">
+        <label for="workers">Parallel runs</label>
+        <input type="number" id="workers" min="1" max="32" step="1">
+        <small id="workers-note"></small>
+      </div>
+      <fieldset class="field stages">
+        <legend>Stages</legend>
+        <label><input type="checkbox" name="stage" value="1" checked> 1 beam search over the near-ties</label>
+        <label><input type="checkbox" name="stage" value="2" checked> 2 backward splitting</label>
+        <label><input type="checkbox" name="stage" value="3" checked> 3 beam search over the splits</label>
+        <label><input type="checkbox" name="stage" value="4" checked> 4 large neighborhood search</label>
+      </fieldset>
+    </div>
+    <div class="actions">
+      <button type="button" id="run" class="primary" disabled>Run</button>
+      <button type="button" id="stop" class="ghost" disabled>Stop</button>
+      <span id="run-note" class="muted"></span>
+    </div>
+  </section>
+
+  <section class="card wide" id="progress-card" aria-labelledby="progress-h" hidden>
+    <div class="card-head">
+      <h2 id="progress-h">3. Progress</h2>
+      <span id="elapsed" class="muted mono"></span>
+    </div>
+    <div class="live">
+      <div class="stat"><span class="label">Fewest XOR2 gates so far</span><span id="live-xor2" class="value">–</span></div>
+      <div class="stat"><span class="label">Smallest UMC area so far</span><span id="live-umc" class="value">–</span></div>
+      <div class="stat"><span class="label">Runs</span><span id="live-runs" class="value">–</span></div>
+    </div>
+    <div class="bar" role="progressbar" aria-label="Runs finished" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="bar"></div></div>
+    <table class="stages-table">
+      <thead><tr><th>Stage</th><th>Runs</th><th>Best XOR2</th><th>Time</th></tr></thead>
+      <tbody id="stage-rows"></tbody>
+    </table>
+    <details class="log"><summary>Log</summary><pre id="log"></pre></details>
+  </section>
+
+  <section class="card wide" id="results-card" aria-labelledby="results-h" hidden>
+    <div class="card-head">
+      <h2 id="results-h">4. Circuits</h2>
+      <button type="button" id="download-all" class="ghost">Download all</button>
+    </div>
+    <p class="hint" id="results-note"></p>
+    <div id="results" class="results"></div>
+  </section>
+
+  <section class="card wide about" aria-labelledby="about-h">
+    <h2 id="about-h">About</h2>
+    <p>The search combines four stages: (1) beam search over the near-ties of the depth-bounded Boyar–Peralta forward
+      search, (2) the backward splitting of Shi, Feng and Xu, (3) beam search over these splits, and (4) a large neighborhood
+      search around the best circuit. Every circuit found is also merged into XOR2/XOR3 gates (a gate of fan-out one that
+      is not an output is absorbed into the gate that uses it), and the smallest areas are kept, with the unit areas of
+      HILL for the UMC 180 nm and STM 130 nm libraries (XOR2 3.00 and 3.33 GE, XOR3 4.67 and 4.66 GE).</p>
+    <p>The three budgets are those of the command-line tool of the repository (<code>python3 slpd.py run --preset …</code>),
+      and the circuits are written in the same format, that of the NIST Circuit Complexity Project (<code>XOR3 out a b c</code>
+      for a 3-input gate whose last two operands form the absorbed gate). The runs use the same program,
+      <code>src/dbs.cpp</code>, and the same seeds. The random choices of a seed also depend on the C++ standard library
+      (libc++ here, usually libstdc++ on Linux), so a run can give other circuits than the same run of <code>slpd.py</code>.
+      Before a circuit is shown, this page checks it again, independently of the search program: it computes the matrix
+      within the depth bound.</p>
+    <p class="muted small build" id="build-info"></p>
+    <details class="notices"><summary>Licenses of the libraries in the WebAssembly module</summary><pre><!--NOTICES--></pre></details>
+  </section>
+</main>
+
+<script>
+/*CORE*/
+</script>
+<script>
+const WASM_BASE64 = "/*WASM*/";
+const WORKER_SOURCE = /*WORKER*/;
+const EXAMPLES = /*EXAMPLES*/;
+const BUILD_INFO = /*BUILD_INFO*/;
+</script>
+<script>
+/*APP*/
+</script>
+</body>
+</html>

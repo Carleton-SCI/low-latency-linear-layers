@@ -1,0 +1,25 @@
+file	label	size	min_depth	sfx23_xor2	hill_umc180	hill_depth	hill_input_xor2
+AES.txt	AES MixColumns [DR02]	32x32	3	99	270.4	3	99
+SmallAES.txt	SmallScale AES [CMR05]	16x16	3	46	127.7	3	
+JOLTIK.txt	Joltik [JNP15]	16x16	3	47	126.71	3	48
+FSE_SKOP15_16_Hadamard.txt	SKOP15 Hadamard 16	16x16	3	47	125.04	3	47
+FSE_LiuSim16_16_Circulant.txt	LS16 circulant 16	16x16	3	43	117.37	3	44
+FSE_LiWang16_16_Circulant.txt	LW16 circulant 16	16x16	3	43	116.04	3	44
+ToSC_SarSye16_16_Toeplitz.txt	SS16 Toeplitz 16	16x16	3	42	114.03	3	42
+ePrint_JeaPeySim_16.txt	JPST17 16	16x16	3	43	113.04	3	43
+FSE_SKOP15_16_Involutory.txt	SKOP15 involutory 16	16x16	3	47	125.38	3	48
+FSE_LiWang16_16_Involutory.txt	LW16 involutory 16	16x16	3	47	125.38	3	48
+ToSC_SarSye16_16_Involutory.txt	SS16 involutory 16	16x16	3	42	110.04	3	42
+ePrint_JeaPeySim_16_Involutory.txt	JPST17 involutory 16	16x16	3	46	123.37	3	46
+FSE_SKOP15_32_Hadamard.txt	SKOP15 Hadamard 32	32x32	3	96	245.44	3	96
+FSE_LiuSim16_32_Circulant.txt	LS16 circ 32, HILL variant	32x32	3		283.45	4	110
+FSE_LiuSim16_32_Circulant_SFX.txt	LS16 circulant 32 (SFX23 matrix)	32x32	3	110			
+FSE_LiWang16_32.txt	LW16 32	32x32	3	101	261.77	3	101
+C_BeiKraLea16_32_Circulant.txt	BKL16 circulant 32	32x32	3	107	278.44	3	107
+ToSC_SarSye16_32_Toeplitz.txt	SS16 Toeplitz 32	32x32	3	105	272.44	3	105
+ePrint_JeaPeySim_32_Subfield.txt	JPST17 subfield 32	32x32	3	89	240.4	3	89
+FSE_SKOP15_32_Involutory.txt	SKOP15 involutory 32	32x32	3	98	256.76	3	98
+FSE_LiWang16_32_Involutory.txt	LW16 involutory 32	32x32	3	89	247.42	3	94
+ToSC_SarSye16_32_Involutory.txt	SS16 involutory 32	32x32	4	98	266.07	4	98
+KLSW.txt	KLSW17 32	32x32	3	86	231.4	3	86
+168_130.txt	LSL+19 HW168 #130 (SFX23 matrix M)	32x32	3	84	229.39	3	84

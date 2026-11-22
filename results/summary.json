@@ -1,0 +1,1082 @@
+{
+ "AES": {
+  "label": "AES MixColumns [DR02]",
+  "size": "32x32",
+  "min_depth": 3,
+  "sfx23_xor2": "99",
+  "hill_umc180": "270.4",
+  "best": {
+   "xor2": {
+    "file": "AES.xor2.circ.txt",
+    "group": "main",
+    "stage": 4,
+    "source": "run/lns/AES.seed2.xor2.txt",
+    "xor2_before_merge": 97,
+    "xor2": 97,
+    "xor3": 0,
+    "depth": 3,
+    "umc180": 291.0,
+    "stm130": 323.01
+   },
+   "umc180": {
+    "file": "AES.umc180.circ.txt",
+    "group": "area",
+    "stage": 4,
+    "source": "runs/area/AES.seed2.stm130.txt",
+    "xor2_before_merge": 100,
+    "xor2": 38,
+    "xor3": 31,
+    "depth": 3,
+    "umc180": 258.77,
+    "stm130": 271.0
+   },
+   "stm130": {
+    "file": "AES.stm130.circ.txt",
+    "group": "area",
+    "stage": 4,
+    "source": "runs/area/AES.seed5.stm130.txt",
+    "xor2_before_merge": 101,
+    "xor2": 29,
+    "xor3": 37,
+    "depth": 3,
+    "umc180": 259.79,
+    "stm130": 268.99
+   }
+  }
+ },
+ "SmallAES": {
+  "label": "SmallScale AES [CMR05]",
+  "size": "16x16",
+  "min_depth": 3,
+  "sfx23_xor2": "46",
+  "hill_umc180": "127.7",
+  "best": {
+   "xor2": {
+    "file": "SmallAES.xor2.circ.txt",
+    "group": "s4sfx",
+    "stage": 4,
+    "source": "runs/stage4fromsfx/SmallAES.seed1.xor2.txt",
+    "xor2_before_merge": 45,
+    "xor2": 45,
+    "xor3": 0,
+    "depth": 3,
+    "umc180": 135.0,
+    "stm130": 149.85
+   },
+   "umc180": {
+    "file": "SmallAES.umc180.circ.txt",
+    "group": "main",
+    "stage": 3,
+    "source": "run/bbeam/SmallAES.seed3.stm130.txt",
+    "xor2_before_merge": 47,
+    "xor2": 13,
+    "xor3": 17,
+    "depth": 3,
+    "umc180": 118.39,
+    "stm130": 122.51
+   },
+   "stm130": {
+    "file": "SmallAES.stm130.circ.txt",
+    "group": "main",
+    "stage": 3,
+    "source": "run/bbeam/SmallAES.seed3.stm130.txt",
+    "xor2_before_merge": 47,
+    "xor2": 13,
+    "xor3": 17,
+    "depth": 3,
+    "umc180": 118.39,
+    "stm130": 122.51
+   }
+  }
+ },
+ "JOLTIK": {
+  "label": "Joltik [JNP15]",
+  "size": "16x16",
+  "min_depth": 3,
+  "sfx23_xor2": "47",
+  "hill_umc180": "126.71",
+  "best": {
+   "xor2": {
+    "file": "JOLTIK.xor2.circ.txt",
+    "group": "main",
+    "stage": 3,
+    "source": "run/bbeam/JOLTIK.seed7.xor2.txt",
+    "xor2_before_merge": 46,
+    "xor2": 46,
+    "xor3": 0,
+    "depth": 3,
+    "umc180": 138.0,
+    "stm130": 153.18
+   },
+   "umc180": {
+    "file": "JOLTIK.umc180.circ.txt",
+    "group": "area",
+    "stage": 4,
+    "source": "runs/area/JOLTIK.seed1.stm130.txt",
+    "xor2_before_merge": 48,
+    "xor2": 16,
+    "xor3": 16,
+    "depth": 3,
+    "umc180": 122.72,
+    "stm130": 127.84
+   },
+   "stm130": {
+    "file": "JOLTIK.stm130.circ.txt",
+    "group": "area",
+    "stage": 4,
+    "source": "runs/area/JOLTIK.seed1.stm130.txt",
+    "xor2_before_merge": 48,
+    "xor2": 13,
+    "xor3": 18,
+    "depth": 3,
+    "umc180": 123.06,
+    "stm130": 127.17
+   }
+  }
+ },
+ "FSE_SKOP15_16_Hadamard": {
+  "label": "SKOP15 Hadamard 16",
+  "size": "16x16",
+  "min_depth": 3,
+  "sfx23_xor2": "47",
+  "hill_umc180": "125.04",
+  "best": {
+   "xor2": {
+    "file": "FSE_SKOP15_16_Hadamard.xor2.circ.txt",
+    "group": "main",
+    "stage": 4,
+    "source": "run/lns/FSE_SKOP15_16_Hadamard.seed1.stm130.txt",
+    "xor2_before_merge": 47,
+    "xor2": 47,
+    "xor3": 0,
+    "depth": 3,
+    "umc180": 141.0,
+    "stm130": 156.51
+   },
+   "umc180": {
+    "file": "FSE_SKOP15_16_Hadamard.umc180.circ.txt",
+    "group": "main",
+    "stage": 4,
+    "source": "run/lns/FSE_SKOP15_16_Hadamard.seed1.stm130.txt",
+    "xor2_before_merge": 47,
+    "xor2": 19,
+    "xor3": 14,
+    "depth": 3,
+    "umc180": 122.38,
+    "stm130": 128.51
+   },
+   "stm130": {
+    "file": "FSE_SKOP15_16_Hadamard.stm130.circ.txt",
+    "group": "main",
+    "stage": 3,
+    "source": "run/bbeam/FSE_SKOP15_16_Hadamard.seed1.stm130.txt",
+    "xor2_before_merge": 49,
+    "xor2": 13,
+    "xor3": 18,
+    "depth": 3,
+    "umc180": 123.06,
+    "stm130": 127.17
+   }
+  }
+ },
+ "FSE_LiuSim16_16_Circulant": {
+  "label": "LS16 circulant 16",
+  "size": "16x16",
+  "min_depth": 3,
+  "sfx23_xor2": "43",
+  "hill_umc180": "117.37",
+  "best": {
+   "xor2": {
+    "file": "FSE_LiuSim16_16_Circulant.xor2.circ.txt",
+    "group": "main",
+    "stage": 3,
+    "source": "run/bbeam/FSE_LiuSim16_16_Circulant.seed4.xor2.txt",
+    "xor2_before_merge": 43,
+    "xor2": 43,
+    "xor3": 0,
+    "depth": 3,
+    "umc180": 129.0,
+    "stm130": 143.19
+   },
+   "umc180": {
+    "file": "FSE_LiuSim16_16_Circulant.umc180.circ.txt",
+    "group": "main",
+    "stage": 1,
+    "source": "run/forward/FSE_LiuSim16_16_Circulant__bp_w2000_s1_seed3.stm130.txt",
+    "xor2_before_merge": 44,
+    "xor2": 20,
+    "xor3": 12,
+    "depth": 2,
+    "umc180": 116.04,
+    "stm130": 122.52
+   },
+   "stm130": {
+    "file": "FSE_LiuSim16_16_Circulant.stm130.circ.txt",
+    "group": "main",
+    "stage": 3,
+    "source": "run/bbeam/FSE_LiuSim16_16_Circulant.seed6.stm130.txt",
+    "xor2_before_merge": 46,
+    "xor2": 11,
+    "xor3": 18,
+    "depth": 2,
+    "umc180": 117.06,
+    "stm130": 120.51
+   }
+  }
+ },
+ "FSE_LiWang16_16_Circulant": {
+  "label": "LW16 circulant 16",
+  "size": "16x16",
+  "min_depth": 3,
+  "sfx23_xor2": "43",
+  "hill_umc180": "116.04",
+  "best": {
+   "xor2": {
+    "file": "FSE_LiWang16_16_Circulant.xor2.circ.txt",
+    "group": "main",
+    "stage": 3,
+    "source": "run/bbeam/FSE_LiWang16_16_Circulant.seed6.xor2.txt",
+    "xor2_before_merge": 43,
+    "xor2": 43,
+    "xor3": 0,
+    "depth": 3,
+    "umc180": 129.0,
+    "stm130": 143.19
+   },
+   "umc180": {
+    "file": "FSE_LiWang16_16_Circulant.umc180.circ.txt",
+    "group": "main",
+    "stage": 1,
+    "source": "run/forward/FSE_LiWang16_16_Circulant__bp_w2000_s1_seed1.stm130.txt",
+    "xor2_before_merge": 44,
+    "xor2": 20,
+    "xor3": 12,
+    "depth": 2,
+    "umc180": 116.04,
+    "stm130": 122.52
+   },
+   "stm130": {
+    "file": "FSE_LiWang16_16_Circulant.stm130.circ.txt",
+    "group": "main",
+    "stage": 3,
+    "source": "run/bbeam/FSE_LiWang16_16_Circulant.seed4.umc180.txt",
+    "xor2_before_merge": 44,
+    "xor2": 14,
+    "xor3": 16,
+    "depth": 3,
+    "umc180": 116.72,
+    "stm130": 121.18
+   }
+  }
+ },
+ "ToSC_SarSye16_16_Toeplitz": {
+  "label": "SS16 Toeplitz 16",
+  "size": "16x16",
+  "min_depth": 3,
+  "sfx23_xor2": "42",
+  "hill_umc180": "114.03",
+  "best": {
+   "xor2": {
+    "file": "ToSC_SarSye16_16_Toeplitz.xor2.circ.txt",
+    "group": "main",
+    "stage": 4,
+    "source": "run/lns/ToSC_SarSye16_16_Toeplitz.seed1.umc180.txt",
+    "xor2_before_merge": 42,
+    "xor2": 42,
+    "xor3": 0,
+    "depth": 3,
+    "umc180": 126.0,
+    "stm130": 139.86
+   },
+   "umc180": {
+    "file": "ToSC_SarSye16_16_Toeplitz.umc180.circ.txt",
+    "group": "main",
+    "stage": 4,
+    "source": "run/lns/ToSC_SarSye16_16_Toeplitz.seed1.umc180.txt",
+    "xor2_before_merge": 42,
+    "xor2": 20,
+    "xor3": 11,
+    "depth": 3,
+    "umc180": 111.37,
+    "stm130": 117.86
+   },
+   "stm130": {
+    "file": "ToSC_SarSye16_16_Toeplitz.stm130.circ.txt",
+    "group": "main",
+    "stage": 3,
+    "source": "run/bbeam/ToSC_SarSye16_16_Toeplitz.seed4.stm130.txt",
+    "xor2_before_merge": 45,
+    "xor2": 11,
+    "xor3": 17,
+    "depth": 3,
+    "umc180": 112.39,
+    "stm130": 115.85
+   }
+  }
+ },
+ "ePrint_JeaPeySim_16": {
+  "label": "JPST17 16",
+  "size": "16x16",
+  "min_depth": 3,
+  "sfx23_xor2": "43",
+  "hill_umc180": "113.04",
+  "best": {
+   "xor2": {
+    "file": "ePrint_JeaPeySim_16.xor2.circ.txt",
+    "group": "main",
+    "stage": 4,
+    "source": "run/lns/ePrint_JeaPeySim_16.seed3.stm130.txt",
+    "xor2_before_merge": 43,
+    "xor2": 43,
+    "xor3": 0,
+    "depth": 3,
+    "umc180": 129.0,
+    "stm130": 143.19
+   },
+   "umc180": {
+    "file": "ePrint_JeaPeySim_16.umc180.circ.txt",
+    "group": "main",
+    "stage": 4,
+    "source": "run/lns/ePrint_JeaPeySim_16.seed3.stm130.txt",
+    "xor2_before_merge": 43,
+    "xor2": 17,
+    "xor3": 13,
+    "depth": 3,
+    "umc180": 111.71,
+    "stm130": 117.19
+   },
+   "stm130": {
+    "file": "ePrint_JeaPeySim_16.stm130.circ.txt",
+    "group": "main",
+    "stage": 4,
+    "source": "run/lns/ePrint_JeaPeySim_16.seed3.stm130.txt",
+    "xor2_before_merge": 43,
+    "xor2": 11,
+    "xor3": 17,
+    "depth": 3,
+    "umc180": 112.39,
+    "stm130": 115.85
+   }
+  }
+ },
+ "FSE_SKOP15_16_Involutory": {
+  "label": "SKOP15 involutory 16",
+  "size": "16x16",
+  "min_depth": 3,
+  "sfx23_xor2": "47",
+  "hill_umc180": "125.38",
+  "best": {
+   "xor2": {
+    "file": "FSE_SKOP15_16_Involutory.xor2.circ.txt",
+    "group": "main",
+    "stage": 3,
+    "source": "run/bbeam/FSE_SKOP15_16_Involutory.seed7.xor2.txt",
+    "xor2_before_merge": 46,
+    "xor2": 46,
+    "xor3": 0,
+    "depth": 3,
+    "umc180": 138.0,
+    "stm130": 153.18
+   },
+   "umc180": {
+    "file": "FSE_SKOP15_16_Involutory.umc180.circ.txt",
+    "group": "area",
+    "stage": 4,
+    "source": "runs/area/FSE_SKOP15_16_Involutory.seed1.stm130.txt",
+    "xor2_before_merge": 48,
+    "xor2": 16,
+    "xor3": 16,
+    "depth": 3,
+    "umc180": 122.72,
+    "stm130": 127.84
+   },
+   "stm130": {
+    "file": "FSE_SKOP15_16_Involutory.stm130.circ.txt",
+    "group": "area",
+    "stage": 4,
+    "source": "runs/area/FSE_SKOP15_16_Involutory.seed1.stm130.txt",
+    "xor2_before_merge": 48,
+    "xor2": 13,
+    "xor3": 18,
+    "depth": 3,
+    "umc180": 123.06,
+    "stm130": 127.17
+   }
+  }
+ },
+ "FSE_LiWang16_16_Involutory": {
+  "label": "LW16 involutory 16",
+  "size": "16x16",
+  "min_depth": 3,
+  "sfx23_xor2": "47",
+  "hill_umc180": "125.38",
+  "best": {
+   "xor2": {
+    "file": "FSE_LiWang16_16_Involutory.xor2.circ.txt",
+    "group": "main",
+    "stage": 4,
+    "source": "run/lns/FSE_LiWang16_16_Involutory.seed7.stm130.txt",
+    "xor2_before_merge": 47,
+    "xor2": 47,
+    "xor3": 0,
+    "depth": 3,
+    "umc180": 141.0,
+    "stm130": 156.51
+   },
+   "umc180": {
+    "file": "FSE_LiWang16_16_Involutory.umc180.circ.txt",
+    "group": "area",
+    "stage": 4,
+    "source": "runs/area/FSE_LiWang16_16_Involutory.seed1.stm130.txt",
+    "xor2_before_merge": 48,
+    "xor2": 16,
+    "xor3": 16,
+    "depth": 3,
+    "umc180": 122.72,
+    "stm130": 127.84
+   },
+   "stm130": {
+    "file": "FSE_LiWang16_16_Involutory.stm130.circ.txt",
+    "group": "area",
+    "stage": 4,
+    "source": "runs/area/FSE_LiWang16_16_Involutory.seed1.stm130.txt",
+    "xor2_before_merge": 48,
+    "xor2": 13,
+    "xor3": 18,
+    "depth": 3,
+    "umc180": 123.06,
+    "stm130": 127.17
+   }
+  }
+ },
+ "ToSC_SarSye16_16_Involutory": {
+  "label": "SS16 involutory 16",
+  "size": "16x16",
+  "min_depth": 3,
+  "sfx23_xor2": "42",
+  "hill_umc180": "110.04",
+  "best": {
+   "xor2": {
+    "file": "ToSC_SarSye16_16_Involutory.xor2.circ.txt",
+    "group": "main",
+    "stage": 4,
+    "source": "run/lns/ToSC_SarSye16_16_Involutory.seed2.xor2.txt",
+    "xor2_before_merge": 40,
+    "xor2": 40,
+    "xor3": 0,
+    "depth": 3,
+    "umc180": 120.0,
+    "stm130": 133.2
+   },
+   "umc180": {
+    "file": "ToSC_SarSye16_16_Involutory.umc180.circ.txt",
+    "group": "main",
+    "stage": 3,
+    "source": "run/bbeam/ToSC_SarSye16_16_Involutory.seed3.stm130.txt",
+    "xor2_before_merge": 43,
+    "xor2": 13,
+    "xor3": 15,
+    "depth": 3,
+    "umc180": 109.05,
+    "stm130": 113.19
+   },
+   "stm130": {
+    "file": "ToSC_SarSye16_16_Involutory.stm130.circ.txt",
+    "group": "main",
+    "stage": 3,
+    "source": "run/bbeam/ToSC_SarSye16_16_Involutory.seed3.stm130.txt",
+    "xor2_before_merge": 43,
+    "xor2": 13,
+    "xor3": 15,
+    "depth": 3,
+    "umc180": 109.05,
+    "stm130": 113.19
+   }
+  }
+ },
+ "ePrint_JeaPeySim_16_Involutory": {
+  "label": "JPST17 involutory 16",
+  "size": "16x16",
+  "min_depth": 3,
+  "sfx23_xor2": "46",
+  "hill_umc180": "123.37",
+  "best": {
+   "xor2": {
+    "file": "ePrint_JeaPeySim_16_Involutory.xor2.circ.txt",
+    "group": "main",
+    "stage": 3,
+    "source": "run/bbeam/ePrint_JeaPeySim_16_Involutory.seed1.xor2.txt",
+    "xor2_before_merge": 46,
+    "xor2": 46,
+    "xor3": 0,
+    "depth": 3,
+    "umc180": 138.0,
+    "stm130": 153.18
+   },
+   "umc180": {
+    "file": "ePrint_JeaPeySim_16_Involutory.umc180.circ.txt",
+    "group": "main",
+    "stage": 3,
+    "source": "run/bbeam/ePrint_JeaPeySim_16_Involutory.seed1.stm130.txt",
+    "xor2_before_merge": 47,
+    "xor2": 17,
+    "xor3": 15,
+    "depth": 3,
+    "umc180": 121.05,
+    "stm130": 126.51
+   },
+   "stm130": {
+    "file": "ePrint_JeaPeySim_16_Involutory.stm130.circ.txt",
+    "group": "main",
+    "stage": 3,
+    "source": "run/bbeam/ePrint_JeaPeySim_16_Involutory.seed1.stm130.txt",
+    "xor2_before_merge": 47,
+    "xor2": 14,
+    "xor3": 17,
+    "depth": 3,
+    "umc180": 121.39,
+    "stm130": 125.84
+   }
+  }
+ },
+ "FSE_SKOP15_32_Hadamard": {
+  "label": "SKOP15 Hadamard 32",
+  "size": "32x32",
+  "min_depth": 3,
+  "sfx23_xor2": "96",
+  "hill_umc180": "245.44",
+  "best": {
+   "xor2": {
+    "file": "FSE_SKOP15_32_Hadamard.xor2.circ.txt",
+    "group": "s4sfx",
+    "stage": 4,
+    "source": "runs/stage4fromsfx/FSE_SKOP15_32_Hadamard.seed1.umc180.txt",
+    "xor2_before_merge": 94,
+    "xor2": 94,
+    "xor3": 0,
+    "depth": 3,
+    "umc180": 282.0,
+    "stm130": 313.02
+   },
+   "umc180": {
+    "file": "FSE_SKOP15_32_Hadamard.umc180.circ.txt",
+    "group": "s4sfx",
+    "stage": 4,
+    "source": "runs/stage4fromsfx/FSE_SKOP15_32_Hadamard.seed1.umc180.txt",
+    "xor2_before_merge": 94,
+    "xor2": 38,
+    "xor3": 28,
+    "depth": 3,
+    "umc180": 244.76,
+    "stm130": 257.02
+   },
+   "stm130": {
+    "file": "FSE_SKOP15_32_Hadamard.stm130.circ.txt",
+    "group": "main",
+    "stage": 4,
+    "source": "run/lns/FSE_SKOP15_32_Hadamard.seed4.stm130.txt",
+    "xor2_before_merge": 97,
+    "xor2": 29,
+    "xor3": 34,
+    "depth": 3,
+    "umc180": 245.78,
+    "stm130": 255.01
+   }
+  }
+ },
+ "FSE_LiuSim16_32_Circulant": {
+  "label": "LS16 circ 32, HILL variant",
+  "size": "32x32",
+  "min_depth": 3,
+  "sfx23_xor2": null,
+  "hill_umc180": "283.45",
+  "best": {
+   "xor2": {
+    "file": "FSE_LiuSim16_32_Circulant.xor2.circ.txt",
+    "group": "main",
+    "stage": 4,
+    "source": "run/lns/FSE_LiuSim16_32_Circulant.seed3.xor2.txt",
+    "xor2_before_merge": 107,
+    "xor2": 107,
+    "xor3": 0,
+    "depth": 3,
+    "umc180": 321.0,
+    "stm130": 356.31
+   },
+   "umc180": {
+    "file": "FSE_LiuSim16_32_Circulant.umc180.circ.txt",
+    "group": "main",
+    "stage": 4,
+    "source": "run/lns/FSE_LiuSim16_32_Circulant.seed5.stm130.txt",
+    "xor2_before_merge": 108,
+    "xor2": 34,
+    "xor3": 37,
+    "depth": 3,
+    "umc180": 274.79,
+    "stm130": 285.64
+   },
+   "stm130": {
+    "file": "FSE_LiuSim16_32_Circulant.stm130.circ.txt",
+    "group": "main",
+    "stage": 4,
+    "source": "run/lns/FSE_LiuSim16_32_Circulant.seed5.stm130.txt",
+    "xor2_before_merge": 108,
+    "xor2": 31,
+    "xor3": 39,
+    "depth": 3,
+    "umc180": 275.13,
+    "stm130": 284.97
+   }
+  }
+ },
+ "FSE_LiuSim16_32_Circulant_SFX": {
+  "label": "LS16 circulant 32 (SFX23 matrix)",
+  "size": "32x32",
+  "min_depth": 3,
+  "sfx23_xor2": "110",
+  "hill_umc180": null,
+  "best": {
+   "xor2": {
+    "file": "FSE_LiuSim16_32_Circulant_SFX.xor2.circ.txt",
+    "group": "s4sfx",
+    "stage": 4,
+    "source": "runs/stage4fromsfx/FSE_LiuSim16_32_Circulant_SFX.seed3.umc180.txt",
+    "xor2_before_merge": 106,
+    "xor2": 106,
+    "xor3": 0,
+    "depth": 3,
+    "umc180": 318.0,
+    "stm130": 352.98
+   },
+   "umc180": {
+    "file": "FSE_LiuSim16_32_Circulant_SFX.umc180.circ.txt",
+    "group": "main",
+    "stage": 4,
+    "source": "run/lns/FSE_LiuSim16_32_Circulant_SFX.seed1.stm130.txt",
+    "xor2_before_merge": 108,
+    "xor2": 34,
+    "xor3": 37,
+    "depth": 3,
+    "umc180": 274.79,
+    "stm130": 285.64
+   },
+   "stm130": {
+    "file": "FSE_LiuSim16_32_Circulant_SFX.stm130.circ.txt",
+    "group": "main",
+    "stage": 4,
+    "source": "run/lns/FSE_LiuSim16_32_Circulant_SFX.seed3.stm130.txt",
+    "xor2_before_merge": 108,
+    "xor2": 25,
+    "xor3": 43,
+    "depth": 3,
+    "umc180": 275.81,
+    "stm130": 283.63
+   }
+  }
+ },
+ "FSE_LiWang16_32": {
+  "label": "LW16 32",
+  "size": "32x32",
+  "min_depth": 3,
+  "sfx23_xor2": "101",
+  "hill_umc180": "261.77",
+  "best": {
+   "xor2": {
+    "file": "FSE_LiWang16_32.xor2.circ.txt",
+    "group": "main",
+    "stage": 4,
+    "source": "run/lns/FSE_LiWang16_32.seed2.stm130.txt",
+    "xor2_before_merge": 98,
+    "xor2": 98,
+    "xor3": 0,
+    "depth": 3,
+    "umc180": 294.0,
+    "stm130": 326.34
+   },
+   "umc180": {
+    "file": "FSE_LiWang16_32.umc180.circ.txt",
+    "group": "s4sfx",
+    "stage": 4,
+    "source": "runs/stage4fromsfx/FSE_LiWang16_32.seed5.stm130.txt",
+    "xor2_before_merge": 98,
+    "xor2": 28,
+    "xor3": 35,
+    "depth": 3,
+    "umc180": 247.45,
+    "stm130": 256.34
+   },
+   "stm130": {
+    "file": "FSE_LiWang16_32.stm130.circ.txt",
+    "group": "s4sfx",
+    "stage": 4,
+    "source": "runs/stage4fromsfx/FSE_LiWang16_32.seed5.stm130.txt",
+    "xor2_before_merge": 98,
+    "xor2": 28,
+    "xor3": 35,
+    "depth": 3,
+    "umc180": 247.45,
+    "stm130": 256.34
+   }
+  }
+ },
+ "C_BeiKraLea16_32_Circulant": {
+  "label": "BKL16 circulant 32",
+  "size": "32x32",
+  "min_depth": 3,
+  "sfx23_xor2": "107",
+  "hill_umc180": "278.44",
+  "best": {
+   "xor2": {
+    "file": "C_BeiKraLea16_32_Circulant.xor2.circ.txt",
+    "group": "main",
+    "stage": 4,
+    "source": "run/lns/C_BeiKraLea16_32_Circulant.seed1.stm130.txt",
+    "xor2_before_merge": 104,
+    "xor2": 104,
+    "xor3": 0,
+    "depth": 3,
+    "umc180": 312.0,
+    "stm130": 346.32
+   },
+   "umc180": {
+    "file": "C_BeiKraLea16_32_Circulant.umc180.circ.txt",
+    "group": "main",
+    "stage": 4,
+    "source": "run/lns/C_BeiKraLea16_32_Circulant.seed1.stm130.txt",
+    "xor2_before_merge": 104,
+    "xor2": 32,
+    "xor3": 36,
+    "depth": 3,
+    "umc180": 264.12,
+    "stm130": 274.32
+   },
+   "stm130": {
+    "file": "C_BeiKraLea16_32_Circulant.stm130.circ.txt",
+    "group": "main",
+    "stage": 4,
+    "source": "run/lns/C_BeiKraLea16_32_Circulant.seed1.stm130.txt",
+    "xor2_before_merge": 104,
+    "xor2": 32,
+    "xor3": 36,
+    "depth": 3,
+    "umc180": 264.12,
+    "stm130": 274.32
+   }
+  }
+ },
+ "ToSC_SarSye16_32_Toeplitz": {
+  "label": "SS16 Toeplitz 32",
+  "size": "32x32",
+  "min_depth": 3,
+  "sfx23_xor2": "105",
+  "hill_umc180": "272.44",
+  "best": {
+   "xor2": {
+    "file": "ToSC_SarSye16_32_Toeplitz.xor2.circ.txt",
+    "group": "s4sfx",
+    "stage": 4,
+    "source": "runs/stage4fromsfx/ToSC_SarSye16_32_Toeplitz.seed1.umc180.txt",
+    "xor2_before_merge": 101,
+    "xor2": 101,
+    "xor3": 0,
+    "depth": 3,
+    "umc180": 303.0,
+    "stm130": 336.33
+   },
+   "umc180": {
+    "file": "ToSC_SarSye16_32_Toeplitz.umc180.circ.txt",
+    "group": "s4sfx",
+    "stage": 4,
+    "source": "runs/stage4fromsfx/ToSC_SarSye16_32_Toeplitz.seed8.stm130.txt",
+    "xor2_before_merge": 102,
+    "xor2": 32,
+    "xor3": 35,
+    "depth": 3,
+    "umc180": 259.45,
+    "stm130": 269.66
+   },
+   "stm130": {
+    "file": "ToSC_SarSye16_32_Toeplitz.stm130.circ.txt",
+    "group": "s4sfx",
+    "stage": 4,
+    "source": "runs/stage4fromsfx/ToSC_SarSye16_32_Toeplitz.seed8.stm130.txt",
+    "xor2_before_merge": 102,
+    "xor2": 29,
+    "xor3": 37,
+    "depth": 3,
+    "umc180": 259.79,
+    "stm130": 268.99
+   }
+  }
+ },
+ "ePrint_JeaPeySim_32_Subfield": {
+  "label": "JPST17 subfield 32",
+  "size": "32x32",
+  "min_depth": 3,
+  "sfx23_xor2": "89",
+  "hill_umc180": "240.4",
+  "best": {
+   "xor2": {
+    "file": "ePrint_JeaPeySim_32_Subfield.xor2.circ.txt",
+    "group": "main",
+    "stage": 4,
+    "source": "run/lns/ePrint_JeaPeySim_32_Subfield.seed4.stm130.txt",
+    "xor2_before_merge": 86,
+    "xor2": 86,
+    "xor3": 0,
+    "depth": 3,
+    "umc180": 258.0,
+    "stm130": 286.38
+   },
+   "umc180": {
+    "file": "ePrint_JeaPeySim_32_Subfield.umc180.circ.txt",
+    "group": "area",
+    "stage": 4,
+    "source": "runs/area/ePrint_JeaPeySim_32_Subfield.seed8.umc180.txt",
+    "xor2_before_merge": 86,
+    "xor2": 34,
+    "xor3": 26,
+    "depth": 3,
+    "umc180": 223.42,
+    "stm130": 234.38
+   },
+   "stm130": {
+    "file": "ePrint_JeaPeySim_32_Subfield.stm130.circ.txt",
+    "group": "area",
+    "stage": 4,
+    "source": "runs/area/ePrint_JeaPeySim_32_Subfield.seed8.umc180.txt",
+    "xor2_before_merge": 86,
+    "xor2": 22,
+    "xor3": 34,
+    "depth": 3,
+    "umc180": 224.78,
+    "stm130": 231.7
+   }
+  }
+ },
+ "FSE_SKOP15_32_Involutory": {
+  "label": "SKOP15 involutory 32",
+  "size": "32x32",
+  "min_depth": 3,
+  "sfx23_xor2": "98",
+  "hill_umc180": "256.76",
+  "best": {
+   "xor2": {
+    "file": "FSE_SKOP15_32_Involutory.xor2.circ.txt",
+    "group": "main",
+    "stage": 4,
+    "source": "run/lns/FSE_SKOP15_32_Involutory.seed5.stm130.txt",
+    "xor2_before_merge": 94,
+    "xor2": 94,
+    "xor3": 0,
+    "depth": 3,
+    "umc180": 282.0,
+    "stm130": 313.02
+   },
+   "umc180": {
+    "file": "FSE_SKOP15_32_Involutory.umc180.circ.txt",
+    "group": "main",
+    "stage": 4,
+    "source": "run/lns/FSE_SKOP15_32_Involutory.seed8.stm130.txt",
+    "xor2_before_merge": 95,
+    "xor2": 43,
+    "xor3": 26,
+    "depth": 3,
+    "umc180": 250.42,
+    "stm130": 264.35
+   },
+   "stm130": {
+    "file": "FSE_SKOP15_32_Involutory.stm130.circ.txt",
+    "group": "area",
+    "stage": 4,
+    "source": "runs/area/FSE_SKOP15_32_Involutory.seed8.stm130.txt",
+    "xor2_before_merge": 97,
+    "xor2": 25,
+    "xor3": 38,
+    "depth": 3,
+    "umc180": 252.46,
+    "stm130": 260.33
+   }
+  }
+ },
+ "FSE_LiWang16_32_Involutory": {
+  "label": "LW16 involutory 32",
+  "size": "32x32",
+  "min_depth": 3,
+  "sfx23_xor2": "89",
+  "hill_umc180": "247.42",
+  "best": {
+   "xor2": {
+    "file": "FSE_LiWang16_32_Involutory.xor2.circ.txt",
+    "group": "main",
+    "stage": 4,
+    "source": "run/lns/FSE_LiWang16_32_Involutory.seed4.stm130.txt",
+    "xor2_before_merge": 87,
+    "xor2": 87,
+    "xor3": 0,
+    "depth": 3,
+    "umc180": 261.0,
+    "stm130": 289.71
+   },
+   "umc180": {
+    "file": "FSE_LiWang16_32_Involutory.umc180.circ.txt",
+    "group": "s4sfx",
+    "stage": 4,
+    "source": "runs/stage4fromsfx/FSE_LiWang16_32_Involutory.seed1.stm130.txt",
+    "xor2_before_merge": 89,
+    "xor2": 53,
+    "xor3": 18,
+    "depth": 3,
+    "umc180": 243.06,
+    "stm130": 260.37
+   },
+   "stm130": {
+    "file": "FSE_LiWang16_32_Involutory.stm130.circ.txt",
+    "group": "s4sfx",
+    "stage": 4,
+    "source": "runs/stage4fromsfx/FSE_LiWang16_32_Involutory.seed1.stm130.txt",
+    "xor2_before_merge": 89,
+    "xor2": 23,
+    "xor3": 38,
+    "depth": 3,
+    "umc180": 246.46,
+    "stm130": 253.67
+   }
+  }
+ },
+ "ToSC_SarSye16_32_Involutory": {
+  "label": "SS16 involutory 32",
+  "size": "32x32",
+  "min_depth": 4,
+  "sfx23_xor2": "98",
+  "hill_umc180": "266.07",
+  "best": {
+   "xor2": {
+    "file": "ToSC_SarSye16_32_Involutory.xor2.circ.txt",
+    "group": "main",
+    "stage": 4,
+    "source": "runs/depth4/ToSC_SarSye16_32_Involutory.lns.seed8.xor2.txt",
+    "xor2_before_merge": 94,
+    "xor2": 94,
+    "xor3": 0,
+    "depth": 4,
+    "umc180": 282.0,
+    "stm130": 313.02
+   },
+   "umc180": {
+    "file": "ToSC_SarSye16_32_Involutory.umc180.circ.txt",
+    "group": "area",
+    "stage": 4,
+    "source": "runs/area/ToSC_SarSye16_32_Involutory.seed3.stm130.txt",
+    "xor2_before_merge": 96,
+    "xor2": 30,
+    "xor3": 33,
+    "depth": 4,
+    "umc180": 244.11,
+    "stm130": 253.68
+   },
+   "stm130": {
+    "file": "ToSC_SarSye16_32_Involutory.stm130.circ.txt",
+    "group": "area",
+    "stage": 4,
+    "source": "runs/area/ToSC_SarSye16_32_Involutory.seed3.stm130.txt",
+    "xor2_before_merge": 96,
+    "xor2": 27,
+    "xor3": 35,
+    "depth": 4,
+    "umc180": 244.45,
+    "stm130": 253.01
+   }
+  }
+ },
+ "KLSW": {
+  "label": "KLSW17 32",
+  "size": "32x32",
+  "min_depth": 3,
+  "sfx23_xor2": "86",
+  "hill_umc180": "231.4",
+  "best": {
+   "xor2": {
+    "file": "KLSW.xor2.circ.txt",
+    "group": "main",
+    "stage": 4,
+    "source": "run/lns/KLSW.seed3.xor2.txt",
+    "xor2_before_merge": 80,
+    "xor2": 80,
+    "xor3": 0,
+    "depth": 3,
+    "umc180": 240.0,
+    "stm130": 266.4
+   },
+   "umc180": {
+    "file": "KLSW.umc180.circ.txt",
+    "group": "s4sfx",
+    "stage": 4,
+    "source": "runs/stage4fromsfx/KLSW.seed1.stm130.txt",
+    "xor2_before_merge": 82,
+    "xor2": 42,
+    "xor3": 20,
+    "depth": 3,
+    "umc180": 219.4,
+    "stm130": 233.06
+   },
+   "stm130": {
+    "file": "KLSW.stm130.circ.txt",
+    "group": "s4sfx",
+    "stage": 4,
+    "source": "runs/stage4fromsfx/KLSW.seed6.stm130.txt",
+    "xor2_before_merge": 83,
+    "xor2": 30,
+    "xor3": 28,
+    "depth": 3,
+    "umc180": 220.76,
+    "stm130": 230.38
+   }
+  }
+ },
+ "168_130": {
+  "label": "LSL+19 HW168 #130 (SFX23 matrix M)",
+  "size": "32x32",
+  "min_depth": 3,
+  "sfx23_xor2": "84",
+  "hill_umc180": "229.39",
+  "best": {
+   "xor2": {
+    "file": "168_130.xor2.circ.txt",
+    "group": "main",
+    "stage": 4,
+    "source": "run/lns/168_130.seed1.umc180.txt",
+    "xor2_before_merge": 82,
+    "xor2": 82,
+    "xor3": 0,
+    "depth": 3,
+    "umc180": 246.0,
+    "stm130": 273.06
+   },
+   "umc180": {
+    "file": "168_130.umc180.circ.txt",
+    "group": "s4sfx",
+    "stage": 4,
+    "source": "runs/stage4fromsfx/168_130.seed1.stm130.txt",
+    "xor2_before_merge": 83,
+    "xor2": 41,
+    "xor3": 21,
+    "depth": 3,
+    "umc180": 221.07,
+    "stm130": 234.39
+   },
+   "stm130": {
+    "file": "168_130.stm130.circ.txt",
+    "group": "main",
+    "stage": 3,
+    "source": "run/bbeam/168_130.seed1.umc180.txt",
+    "xor2_before_merge": 84,
+    "xor2": 32,
+    "xor3": 27,
+    "depth": 3,
+    "umc180": 222.09,
+    "stm130": 232.38
+   }
+  }
+ }
+}
