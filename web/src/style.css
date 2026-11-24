@@ -128,5 +128,5 @@ legend { font-weight: 600; font-size: .9rem; margin-bottom: 6px; padding: 0; }
 .diagram svg { display: block; margin: 0 auto; }
 .diagram .node { cursor: pointer; }
 .diagram svg.hl .node:not(.on), .diagram svg.hl .edge:not(.on) { opacity: .14; }
-.diagram svg .edge.on { stroke-opacity: 1; stroke-width: 2.4; }
+.diagram svg.hl .edge.on { stroke-opacity: 1; stroke-width: 2.4; }
 #viewer-text { max-height: 72vh; overflow: auto; background: var(--code); border-radius: 8px; padding: 10px; font-size: 12px; margin: 0; }

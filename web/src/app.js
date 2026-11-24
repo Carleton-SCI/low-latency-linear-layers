@@ -492,23 +492,28 @@
     $("viewer-text").textContent = entry.circ;
     box.innerHTML = circuitSvg(C);
     const svg = box.querySelector("svg");
-    const nodes = [...svg.querySelectorAll(".node")].map((g) => [Number(g.dataset.id), g]);
-    const edges = [...svg.querySelectorAll(".edge")].map((p) => [Number(p.dataset.b), p]);
+    const nodes = [...svg.querySelectorAll(".node")].map((g) => [g.dataset.id, g]);
+    const edges = [...svg.querySelectorAll(".edge")].map((p) => [p.dataset.b, p]);
     const ops = (v) => (v < C.n ? [] : C.gates[v - C.n]);
-    const highlight = (v) => {
-      if (v === null) { svg.classList.remove("hl"); return; }
-      const cone = new Set([v]), stack = [v];
-      while (stack.length) for (const o of ops(stack.pop())) if (!cone.has(o)) { cone.add(o); stack.push(o); }
+    const ports = new Map();
+    C.out.forEach((o, j) => { if (!ports.has(o)) ports.set(o, []); ports.get(o).push(`p${j}`); });
+    // the highlight: the gate (or output) under the pointer, every gate and input that it uses, and its outputs
+    const highlight = (id) => {
+      if (id === null) { svg.classList.remove("hl"); return; }
+      const isPort = id.startsWith("p"), v = isPort ? C.out[Number(id.slice(1))] : Number(id);
+      const on = new Set(isPort ? [id] : ports.get(v) || []), stack = [v];
+      on.add(String(v));
+      while (stack.length) for (const o of ops(stack.pop())) if (!on.has(String(o))) { on.add(String(o)); stack.push(o); }
       svg.classList.add("hl");
-      for (const [id, g] of nodes) g.classList.toggle("on", cone.has(id));
-      for (const [b, p] of edges) p.classList.toggle("on", cone.has(b));
+      for (const [k, g] of nodes) g.classList.toggle("on", on.has(k));
+      for (const [b, p] of edges) p.classList.toggle("on", on.has(b));
     };
     const nodeOf = (t) => (t && t.closest ? t.closest(".node") : null);
-    svg.addEventListener("mouseover", (ev) => { const g = nodeOf(ev.target); if (g && viewer.pinned === null) highlight(Number(g.dataset.id)); });
+    svg.addEventListener("mouseover", (ev) => { const g = nodeOf(ev.target); if (g && viewer.pinned === null) highlight(g.dataset.id); });
     svg.addEventListener("mouseout", (ev) => { if (viewer.pinned === null && !nodeOf(ev.relatedTarget)) highlight(null); });
     svg.addEventListener("click", (ev) => {
-      const g = nodeOf(ev.target), v = g ? Number(g.dataset.id) : null;
-      viewer.pinned = v === null || v === viewer.pinned ? null : v;
+      const g = nodeOf(ev.target), id = g ? g.dataset.id : null;
+      viewer.pinned = id === null || id === viewer.pinned ? null : id;
       highlight(viewer.pinned);
     });
     $("viewer").hidden = false;

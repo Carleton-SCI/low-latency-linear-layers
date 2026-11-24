@@ -119,15 +119,15 @@ console.log(JSON.stringify(out));
             G = C.merge_xor3()
             self.assertEqual((gates, out, problems), ([list(g) for g in G.gates], list(G.out), []))
             self.assertEqual(circ, skip(circ_text(G, M, "r--umc180", "test", ["extra"])))
-        # the drawings (web/src/core.js, circuitSvg): well-formed SVG, one node per input and gate, one edge per operand
+        # the drawings (web/src/core.js, circuitSvg): well-formed SVG, one node per input, gate and output, one wire per operand and output
         for c, svgs in zip(circuits, js["drawings"]):
             C = Circuit(c["n"], c["gates"], c["out"])
             for D, svg in zip((C, C.merge_xor3()), svgs):
                 root = ET.fromstring(svg)
-                nodes = [g for g in root.iter("{http://www.w3.org/2000/svg}g") if g.get("class") == "node"]
+                nodes = [g for g in root.iter("{http://www.w3.org/2000/svg}g") if "node" in (g.get("class") or "").split()]
                 edges = [p for p in root.iter("{http://www.w3.org/2000/svg}path") if p.get("class") == "edge"]
-                self.assertEqual(len(nodes), D.n + len(D.gates))
-                self.assertEqual(len(edges), sum(len(g) for g in D.gates))
+                self.assertEqual(len(nodes), D.n + len(D.gates) + len(D.out))       # inputs, gates, output ports
+                self.assertEqual(len(edges), sum(len(g) for g in D.gates) + len(D.out))
 
 
 if __name__ == "__main__":
