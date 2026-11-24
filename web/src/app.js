@@ -442,9 +442,8 @@
       if (measure === "stm130") lines.push(`UMC 180 nm: ${b.umc180.toFixed(2)} GE`);
       lines.push(`stage ${b.stage}, run ${b.run}`);
       if (ref && ref[measure]) lines.push(`best of the paper: ${ref[measure]}`);
-      const pre = el("pre", { hidden: "" });
-      pre.textContent = b.circ;
-      const show = el("button", { type: "button", text: "Show", onclick: () => { pre.hidden = !pre.hidden; show.textContent = pre.hidden ? "Show" : "Hide"; } });
+      const entry = { title: `${title}: ${big}`, sub: lines[0], circ: b.circ, circuit: b.circuit, svgName: `${M.name}.${measure}.svg` };
+      const view = el("button", { type: "button", text: "View", title: "Draw the circuit and show its text", onclick: () => openViewer(entry) });
       const copy = el("button", { type: "button", text: "Copy", onclick: async () => {
         try { await navigator.clipboard.writeText(b.circ); copy.textContent = "Copied"; } catch (e) { copy.textContent = "Copy failed"; }
         setTimeout(() => { copy.textContent = "Copy"; }, 1500);
@@ -455,19 +454,66 @@
         ...lines.map((t) => el("div", { class: "sub", text: t })),
         el("div", { class: "verified", text: `✓ re-verified: computes the matrix, depth ≤ ${S.D}` }),
         el("div", { class: "btns" },
-          el("button", { type: "button", text: "Download", title: file, onclick: () => download(file, b.circ) }), copy, show),
-        pre));
+          el("button", { type: "button", text: "Download", title: file, onclick: () => download(file, b.circ) }), copy, view)));
     }
     const sumFile = `${M.name}.summary.json`;
     const sumText = JSON.stringify(summary, null, 1) + "\n";
     files.push({ name: sumFile, text: sumText });
     $("results").replaceChildren(...cards);
+    closeViewer();
     $("results-note").textContent = "Circuit format of the NIST Circuit Complexity Project (XOR3 out a b c: a 3-input gate whose " +
       "last two operands form the absorbed XOR2 gate). The STM areas use the same merge as the UMC areas (no duplication of gates)." +
       (S.stopped ? " The search was stopped: these are the best circuits of the runs that finished." : "");
     $("download-all").onclick = () => download(`${M.name}.circuits.zip`, zip(files));
     $("results-card").hidden = false;
     state.files = files;
+  }
+
+  // ---------------------------------------------------------------- the viewer: the circuit drawn, or its text
+  // Hovering a gate highlights the gates and inputs that it uses (its cone); a click keeps the highlight.
+  const viewer = { entry: null, pinned: null };
+  function setTab(tab) {
+    for (const b of document.querySelectorAll("#viewer .tabs button")) b.setAttribute("aria-selected", String(b.dataset.tab === tab));
+    $("viewer-diagram").hidden = tab !== "diagram";
+    $("viewer-hint").hidden = tab !== "diagram";
+    $("viewer-text").hidden = tab !== "text";
+  }
+  function closeViewer() {
+    $("viewer").hidden = true;
+    $("viewer-diagram").replaceChildren();
+    viewer.entry = null;
+  }
+  function openViewer(entry) {
+    const C = entry.circuit, box = $("viewer-diagram");
+    viewer.entry = entry;
+    viewer.pinned = null;
+    $("viewer-title").textContent = entry.title;
+    $("viewer-sub").textContent = entry.sub;
+    $("viewer-text").textContent = entry.circ;
+    box.innerHTML = circuitSvg(C);
+    const svg = box.querySelector("svg");
+    const nodes = [...svg.querySelectorAll(".node")].map((g) => [Number(g.dataset.id), g]);
+    const edges = [...svg.querySelectorAll(".edge")].map((p) => [Number(p.dataset.b), p]);
+    const ops = (v) => (v < C.n ? [] : C.gates[v - C.n]);
+    const highlight = (v) => {
+      if (v === null) { svg.classList.remove("hl"); return; }
+      const cone = new Set([v]), stack = [v];
+      while (stack.length) for (const o of ops(stack.pop())) if (!cone.has(o)) { cone.add(o); stack.push(o); }
+      svg.classList.add("hl");
+      for (const [id, g] of nodes) g.classList.toggle("on", cone.has(id));
+      for (const [b, p] of edges) p.classList.toggle("on", cone.has(b));
+    };
+    const nodeOf = (t) => (t && t.closest ? t.closest(".node") : null);
+    svg.addEventListener("mouseover", (ev) => { const g = nodeOf(ev.target); if (g && viewer.pinned === null) highlight(Number(g.dataset.id)); });
+    svg.addEventListener("mouseout", (ev) => { if (viewer.pinned === null && !nodeOf(ev.relatedTarget)) highlight(null); });
+    svg.addEventListener("click", (ev) => {
+      const g = nodeOf(ev.target), v = g ? Number(g.dataset.id) : null;
+      viewer.pinned = v === null || v === viewer.pinned ? null : v;
+      highlight(viewer.pinned);
+    });
+    $("viewer").hidden = false;
+    setTab("diagram");
+    $("viewer").scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   // ---------------------------------------------------------------- wiring
@@ -508,6 +554,12 @@
       S.stopped = true;
       log("stopped by the user");
       if (S.pool) S.pool.terminate();
+    });
+    for (const b of document.querySelectorAll("#viewer .tabs button")) b.addEventListener("click", () => setTab(b.dataset.tab));
+    $("viewer-close").addEventListener("click", closeViewer);
+    $("viewer-svg").addEventListener("click", () => {
+      const svg = $("viewer-diagram").querySelector("svg");
+      if (svg && viewer.entry) download(viewer.entry.svgName, circuitSvg(viewer.entry.circuit), "image/svg+xml");
     });
     window.addEventListener("beforeunload", (e) => { if (state.search) { e.preventDefault(); e.returnValue = ""; } });
     $("build-info").textContent = BUILD_INFO;

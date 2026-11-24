@@ -11,6 +11,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+import xml.etree.ElementTree as ET
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
@@ -86,7 +87,7 @@ class WebTests(unittest.TestCase):
 const core = require(process.argv[1]);
 const inp = JSON.parse(require("fs").readFileSync(0, "utf8"));
 const skip = (t) => t.split("\n").filter((l) => !l.startsWith("# File timestamp") && !l.startsWith("# Written by"));
-const out = { presets: inp.presets.map(([p, n, m, st]) => core.presetJobs(p, n, m, st)), checks: [], circuits: [] };
+const out = { presets: inp.presets.map(([p, n, m, st]) => core.presetJobs(p, n, m, st)), checks: [], circuits: [], drawings: [] };
 for (const t of inp.texts) for (const M of core.parseMatrices(t, "m")) {
   const c = core.checkMatrix(M);
   out.checks.push([M.name, c.errors, c.warnings, c.info.minDepth, c.info.naiveXor2, c.info.rank]);
@@ -96,6 +97,7 @@ for (const c of inp.circuits) {
   const M = new core.Matrix(c.out.map((o) => val[o]), c.n, "r");
   const G = C.mergeXor3();
   out.circuits.push([G.gates, G.out, G.check(M, C.depth()), skip(core.circText(G, M, "r--umc180", "test", ["extra"]))]);
+  out.drawings.push([core.circuitSvg(C), core.circuitSvg(G)]);
 }
 console.log(JSON.stringify(out));
 """
@@ -117,6 +119,15 @@ console.log(JSON.stringify(out));
             G = C.merge_xor3()
             self.assertEqual((gates, out, problems), ([list(g) for g in G.gates], list(G.out), []))
             self.assertEqual(circ, skip(circ_text(G, M, "r--umc180", "test", ["extra"])))
+        # the drawings (web/src/core.js, circuitSvg): well-formed SVG, one node per input and gate, one edge per operand
+        for c, svgs in zip(circuits, js["drawings"]):
+            C = Circuit(c["n"], c["gates"], c["out"])
+            for D, svg in zip((C, C.merge_xor3()), svgs):
+                root = ET.fromstring(svg)
+                nodes = [g for g in root.iter("{http://www.w3.org/2000/svg}g") if g.get("class") == "node"]
+                edges = [p for p in root.iter("{http://www.w3.org/2000/svg}path") if p.get("class") == "edge"]
+                self.assertEqual(len(nodes), D.n + len(D.gates))
+                self.assertEqual(len(edges), sum(len(g) for g in D.gates))
 
 
 if __name__ == "__main__":

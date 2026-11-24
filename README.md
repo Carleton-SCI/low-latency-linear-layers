@@ -137,9 +137,9 @@ merging; Table 4 of the paper).
 
 ### In the browser
 
-`web/index.html` runs the same presets in the browser, on a pasted or opened matrix or on an example, and gives the
-same files. Download it and open it: it needs no installation and sends nothing over the network (see
-`web/README.md`).
+`web/index.html` runs the same presets in the browser, on a pasted or opened matrix or on an example, gives the same
+files, and draws the circuits. Download it and open it: it needs no installation and sends nothing over the network
+(see `web/README.md`).
 
 ## Reproducing the paper
 
