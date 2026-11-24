@@ -12,7 +12,9 @@ The page:
 - runs a preset of `slpd.py run` (`quick`, `standard` or `paper`), with a depth bound, a choice of stages and a
   number of parallel runs, and shows the progress (the improvements that `dbs --trace` reports);
 - re-verifies the best circuits, independently of the search program, and gives the files of `slpd.py run`: the
-  three circuits in the NIST format (with `XOR3` for the merged gates) and the summary (`.summary.json`).
+  three circuits in the NIST format (with `XOR3` for the merged gates) and the summary (`.summary.json`);
+- draws each circuit (View): the inputs, then one column per gate level, with the gate names of the text; hovering a
+  gate highlights the gates and inputs that it uses, and the drawing can be saved as SVG.
 
 For the matrices of `bench/`, it also gives the best XOR2 count and UMC area of `results/`.
 
@@ -28,7 +30,7 @@ For the matrices of `bench/`, it also gives the best XOR2 count and UMC area of 
 | File | Content |
 |---|---|
 | `index.html` | The page, built by `build.py`; edit `src/` and rebuild instead |
-| `src/core.js` | Ports of the matrix checks (`slpd/matrix.py`), of the evaluation, merge and NIST writer of `slpd/circuit.py`, and of the presets and the selection of `slpd/pipeline.py` |
+| `src/core.js` | Ports of the matrix checks (`slpd/matrix.py`), of the evaluation, merge and NIST writer of `slpd/circuit.py`, and of the presets and the selection of `slpd/pipeline.py`; the drawing of a circuit (SVG) |
 | `src/worker.js` | Runs the module on one job: a minimal WASI layer with the arguments, an in-memory file system, a clock, stdout and stderr |
 | `src/app.js`, `src/index.html`, `src/style.css` | The page |
 | `patch_dbs.py` | Writes the copy of `src/dbs.cpp` that is compiled, with three changes for wasm32 (below) |

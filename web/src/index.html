@@ -103,6 +103,26 @@
     </div>
     <p class="hint" id="results-note"></p>
     <div id="results" class="results"></div>
+    <div id="viewer" class="viewer" hidden>
+      <div class="viewer-head">
+        <div>
+          <h3 id="viewer-title"></h3>
+          <div id="viewer-sub" class="muted small"></div>
+        </div>
+        <div class="tabs" role="tablist" aria-label="View">
+          <button type="button" role="tab" data-tab="diagram" aria-selected="true">Diagram</button>
+          <button type="button" role="tab" data-tab="text" aria-selected="false">Text</button>
+        </div>
+        <div class="viewer-tools">
+          <button type="button" id="viewer-svg">Download SVG</button>
+          <button type="button" id="viewer-close">Close</button>
+        </div>
+      </div>
+      <p class="hint" id="viewer-hint">Inputs on the left, one column per gate level (an XOR3 gate, drawn with a double ring, is one level).
+        Hover a gate to highlight the gates and inputs that it uses; click it to keep the highlight. The names are those of the text.</p>
+      <div id="viewer-diagram" class="diagram"></div>
+      <pre id="viewer-text" hidden></pre>
+    </div>
   </section>
 
   <section class="card wide about" aria-labelledby="about-h">

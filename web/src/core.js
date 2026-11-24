@@ -351,7 +351,130 @@ function selectBest(M, D, results, preset) {
   return best;
 }
 
+// ------------------------------------------------------------------ drawing
+// The names of circText: inputs x1..xn; a gate that computes an output, the name of its first output; other gates t1, t2, ...
+function circuitNames(C) {
+  const n = C.n, first = new Map(), outs = new Map();
+  C.out.forEach((o, j) => {
+    if (!first.has(o)) first.set(o, `y${j + 1}`);
+    if (!outs.has(o)) outs.set(o, []);
+    outs.get(o).push(`y${j + 1}`);
+  });
+  const names = Array.from({ length: n }, (_, c) => `x${c + 1}`);
+  let t = 0;
+  C.gates.forEach((_, k) => names.push(first.has(n + k) ? first.get(n + k) : `t${++t}`));
+  return { names, outs };
+}
+
+const LEVEL_COLORS = ["#2563eb", "#7c3aed", "#db2777", "#ea580c", "#059669", "#0891b2", "#4f46e5", "#be123c"];
+const escXml = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+// The circuit as an SVG drawing (a string): the inputs on the left, then one column per gate level (an XOR3 gate, drawn
+// with a double ring, is one level), the outputs labeled. An edge that skips levels runs through a free slot of each column in between (one slot per
+// signal and column, shared by its edges), and the nodes of each column are ordered to reduce the crossings (barycenter
+// sweeps, as in the layered drawings of Sugiyama et al.). Nodes carry data-id (node index) and edges data-a/data-b
+// (operand, gate), for the page's highlighting.
+function circuitSvg(C) {
+  const n = C.n, N = n + C.gates.length;
+  const { val, dep } = C.evaluate();
+  const { names, outs } = circuitNames(C);
+  const L = Math.max(1, ...dep);
+  const ops = (v) => (v < n ? [] : C.gates[v - n]);
+  // layered graph: the N nodes, then the slots of the edges that skip levels
+  const level = [...dep], ins = Array.from({ length: N }, () => []), nxt = Array.from({ length: N }, () => []);
+  const slot = new Map(), chains = [];
+  for (let v = n; v < N; v++) {
+    for (const o of ops(v)) {
+      const chain = [o];
+      for (let l = dep[o] + 1; l < dep[v]; l++) {
+        const key = `${o}:${l}`;
+        if (!slot.has(key)) {
+          const d = level.length, prev = chain[chain.length - 1];
+          slot.set(key, d); level.push(l); ins.push([prev]); nxt.push([]); nxt[prev].push(d);
+        }
+        chain.push(slot.get(key));
+      }
+      const last = chain[chain.length - 1];
+      ins[v].push(last); nxt[last].push(v); chain.push(v);
+      chains.push([o, v, chain]);
+    }
+  }
+  const K = level.length;
+  const cols = Array.from({ length: L + 1 }, () => []);
+  for (let u = 0; u < K; u++) cols[level[u]].push(u);
+  const maxLen = Math.max(...cols.map((c) => c.length));
+  const rowH = Math.max(22, Math.min(40, Math.floor(620 / maxLen)));
+  const small = N <= 80;
+  const colW = Math.max(140, Math.min(small ? 200 : 240, Math.floor(720 / L)));
+  const y = new Array(K);
+  const place = (l) => cols[l].forEach((u, i) => { y[u] = (i - (cols[l].length - 1) / 2) * rowH; });
+  cols.forEach((_, l) => place(l));
+  const mean = (a, self) => (a.length ? a.reduce((s, u) => s + y[u], 0) / a.length : y[self]);
+  const sortBy = (l, key) => {
+    const k = new Map(cols[l].map((u) => [u, key(u)]));
+    cols[l].sort((a, b) => k.get(a) - k.get(b));
+    place(l);
+  };
+  for (let it = 0; it < 8; it++) {
+    for (let l = 1; l <= L; l++) sortBy(l, (u) => mean(ins[u], u));
+    for (let l = L - 1; l >= 1; l--) sortBy(l, (u) => mean(nxt[u], u));
+  }
+  for (let l = 1; l <= L; l++) sortBy(l, (u) => mean(ins[u], u));
+
+  const padL = 40, padT = 54, padB = 24, r = small ? 11 : 9, boxW = 34, boxH = small ? 22 : 18;
+  const outW = Math.max(0, ...[...outs.values()].map((a) => a.join(", ").length)) * 8 + 24;
+  const W = padL + boxW / 2 + L * colW + r + outW + 16, H = padT + maxLen * rowH + padB;
+  const X = (u) => padL + boxW / 2 + level[u] * colW;
+  const Y = (u) => padT + ((maxLen - 1) * rowH) / 2 + y[u] + rowH / 2;
+  const color = (l) => LEVEL_COLORS[(l - 1) % LEVEL_COLORS.length];
+  const f = (x) => (Math.round(x * 10) / 10).toString();
+  const terms = (v) => Array.from({ length: n }, (_, c) => c).filter((c) => (val[v] >> BigInt(c)) & 1n).map((c) => `x${c + 1}`).join(" + ");
+  const font = 'font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif"';
+  const s = [`<svg xmlns="http://www.w3.org/2000/svg" width="${f(W)}" height="${f(H)}" viewBox="0 0 ${f(W)} ${f(H)}" role="img" ` +
+    `aria-label="Circuit: ${n} inputs, ${C.gates.length} gates, depth ${L}">`, `<rect width="${f(W)}" height="${f(H)}" fill="#ffffff"/>`];
+  for (let l = 0; l <= L; l++) {
+    s.push(`<text x="${f(padL + boxW / 2 + l * colW)}" y="26" text-anchor="middle" font-size="13" font-weight="600" ${font} ` +
+      `fill="${l ? color(l) : "#4b5563"}">${l ? `depth ${l}` : "inputs"}</text>`);
+  }
+  for (const [o, v, chain] of chains) {
+    const pts = chain.map((u, i) => [i === 0 ? X(u) + (u < n ? boxW / 2 : r) : i === chain.length - 1 ? X(u) - r : X(u), Y(u)]);
+    let d = `M${f(pts[0][0])},${f(pts[0][1])}`;
+    for (let i = 1; i < pts.length; i++) {
+      const [x1, y1] = pts[i - 1], [x2, y2] = pts[i], mx = (x1 + x2) / 2;
+      d += ` C${f(mx)},${f(y1)} ${f(mx)},${f(y2)} ${f(x2)},${f(y2)}`;
+    }
+    s.push(`<path class="edge" data-a="${o}" data-b="${v}" d="${d}" fill="none" stroke="${color(dep[v])}" ` +
+      `stroke-width="${small ? 1.8 : 1.3}" stroke-opacity=".55"/>`);
+  }
+  for (let v = 0; v < N; v++) {
+    const x = X(v), yy = Y(v), out = outs.get(v);
+    const tip = v < n ? `${names[v]}: input` + (out ? `; output ${out.join(", ")}` : "")
+      : `${names[v]} = ${terms(v)}` + `; depth ${dep[v]}` + (ops(v).length === 3 ? "; XOR3" : "") + (out ? `; output ${out.join(", ")}` : "") +
+        `; inputs of the gate: ${ops(v).map((o) => names[o]).join(", ")}`;
+    s.push(`<g class="node" data-id="${v}"><title>${escXml(tip)}</title>`);
+    if (v < n) {
+      s.push(`<rect x="${f(x - boxW / 2)}" y="${f(yy - boxH / 2)}" width="${boxW}" height="${boxH}" rx="6" fill="#f3f4f6" stroke="#cbd5e1"/>`,
+        `<text x="${f(x)}" y="${f(yy + 4.5)}" text-anchor="middle" font-size="${small ? 13 : 11}" ${font} fill="#111827">${names[v]}</text>`);
+    } else {
+      const c = color(dep[v]), p = r - 4;
+      s.push(`<circle cx="${f(x)}" cy="${f(yy)}" r="${r}" fill="#ffffff" stroke="${c}" stroke-width="2.2"/>`,
+        `<path d="M${f(x - p)},${f(yy)} H${f(x + p)} M${f(x)},${f(yy - p)} V${f(yy + p)}" stroke="${c}" stroke-width="2"/>`);
+      if (ops(v).length === 3) s.push(`<circle cx="${f(x)}" cy="${f(yy)}" r="${r + 3.5}" fill="none" stroke="${c}" stroke-width="1.3"/>`);
+      if (small && !out) {
+        s.push(`<text x="${f(x + r + 2)}" y="${f(yy - r + 1)}" font-size="10.5" ${font} fill="#6b7280">${names[v]}</text>`);
+      }
+    }
+    if (out) {
+      const x0 = v < n ? x + boxW / 2 + 6 : x + r + 6;
+      s.push(`<text x="${f(x0)}" y="${f(yy + 4.5)}" font-size="${small ? 13 : 11.5}" font-weight="600" ${font} fill="#111827">${out.join(", ")}</text>`);
+    }
+    s.push("</g>");
+  }
+  s.push("</svg>");
+  return s.join("");
+}
+
 if (typeof module !== "undefined") {
   module.exports = { Matrix, MatrixError, CircuitError, Circuit, parseMatrices, checkMatrix, readDbsText, circText, presetJobs,
-    parseBest, keyOf, selectBest, popcount, MAX_INPUTS, MAX_OUTPUTS };
+    parseBest, keyOf, selectBest, popcount, circuitNames, circuitSvg, MAX_INPUTS, MAX_OUTPUTS };
 }
