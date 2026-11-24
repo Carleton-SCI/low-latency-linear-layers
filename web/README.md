@@ -13,8 +13,8 @@ The page:
   number of parallel runs, and shows the progress (the improvements that `dbs --trace` reports);
 - re-verifies the best circuits, independently of the search program, and gives the files of `slpd.py run`: the
   three circuits in the NIST format (with `XOR3` for the merged gates) and the summary (`.summary.json`);
-- draws each circuit (View): the inputs, then one column per gate level, with the gate names of the text; hovering a
-  gate highlights the gates and inputs that it uses, and the drawing can be saved as SVG.
+- draws each circuit (View): the inputs, one column per gate level, and the outputs, with the names of the text;
+  hovering a gate or an output highlights the gates and inputs that it uses, and the drawing can be saved as SVG.
 
 For the matrices of `bench/`, it also gives the best XOR2 count and UMC area of `results/`.
 
